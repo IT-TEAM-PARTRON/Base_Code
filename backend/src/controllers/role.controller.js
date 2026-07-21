@@ -11,7 +11,7 @@ export const getAllRoles = async (req, res, next) => {
         return ok(res, roles, "Success");
     } catch (err) {
         console.error("Get All Roles Error:", err);
-        return fail(res, req.t("server.internalError"), 500);
+        return next(err);
     }
 };
 
@@ -26,7 +26,7 @@ export const getRoleById = async (req, res, next) => {
         return ok(res, role, "Success");
     } catch (err) {
         console.error("Get Role By Id Error:", err);
-        return fail(res, req.t("server.internalError"), 500);
+        return next(err);
     }
 };
 
@@ -59,7 +59,7 @@ export const createRole = async (req, res, next) => {
         return ok(res, newRole, req.t("role.createSuccess"));
     } catch (err) {
         console.error("Create Role Error:", err);
-        return fail(res, req.t("server.internalError"), 500);
+        return next(err);
     }
 };
 
@@ -93,7 +93,7 @@ export const updateRole = async (req, res, next) => {
         return ok(res, updatedRole, req.t("role.updateSuccess"));
     } catch (err) {
         console.error("Update Role Error:", err);
-        return fail(res, req.t("server.internalError"), 500);
+        return next(err);
     }
 };
 
@@ -110,6 +110,6 @@ export const deleteRole = async (req, res, next) => {
         return ok(res, null, req.t("role.deleteSuccess"));
     } catch (err) {
         console.error("Delete Role Error:", err);
-        return fail(res, req.t("server.internalError"), 500);
+        return next(err);
     }
 };

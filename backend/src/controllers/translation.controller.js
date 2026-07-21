@@ -22,7 +22,7 @@ export const updateTranslation = async (req, res) => {
 
     return ok(res, null, "Updated successfully");
   } catch (err) {
-    return fail(res, req.t("server.internalError"), 500);
+    return next(err);
   }
 };
 export const importTranslations = async (req, res) => {

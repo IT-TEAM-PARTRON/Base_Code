@@ -10,7 +10,7 @@ export const getAllUsers = async (req, res, next) => {
         return ok(res, users, "Success");
     } catch (err) {
         console.error("Get All Users Error:", err);
-        return fail(res, req.t("server.internalError"), 500);
+        return next(err);
     }
 };
 export const getUserById = async (req, res, next) => {
@@ -23,7 +23,7 @@ export const getUserById = async (req, res, next) => {
         return ok(res, user, "Success");
     } catch (err) {
         console.error("Get User By Id Error:", err);
-        return fail(res, req.t("server.internalError"), 500);
+        return next(err);
     }
 };
 export const createUser = async (req, res, next) => {
@@ -36,7 +36,7 @@ export const createUser = async (req, res, next) => {
         return ok(res, user, req.t("userSpec.createSuccess"));
     } catch (err) {
         console.error("Create User Error:", err);
-        return fail(res, req.t("server.internalError"), 500);
+        return next(err);
     }
 };
 export const updateUser = async (req, res, next) => {
@@ -50,7 +50,7 @@ export const updateUser = async (req, res, next) => {
         return ok(res, user, req.t("userSpec.updateSuccess"));
     } catch (err) {
         console.error("Update User Error:", err);
-        return fail(res, req.t("server.internalError"), 500);
+        return next(err);
     }
 };
 export const deleteUser = async (req, res, next) => {
@@ -63,7 +63,7 @@ export const deleteUser = async (req, res, next) => {
         return ok(res, user, req.t("userSpec.deleteSuccess"));
     } catch (err) {
         console.error("Delete User Error:", err);
-        return fail(res, req.t("server.internalError"), 500);
+        return next(err);
     }
 };
 export const changeUserPassword = async (req, res, next) => {
@@ -77,7 +77,7 @@ export const changeUserPassword = async (req, res, next) => {
         return ok(res, user, req.t("userSpec.changePasswordSuccess"));
     } catch (err) {
         console.error("Change User Password Error:", err);
-        return fail(res, req.t("server.internalError"), 500);
+        return next(err);
     }
 };
 

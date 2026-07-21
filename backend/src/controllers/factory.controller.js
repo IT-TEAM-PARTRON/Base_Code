@@ -39,7 +39,7 @@ export const createFactory = async (req, res, next) => {
     return ok(res, newFactory, req.t("factory.createSuccess"));
   } catch (err) {
     console.error("Create Factory Error:", err);
-    return fail(res, req.t("server.internalError"), 500);
+    return next(err);
   }
 };
 
@@ -71,7 +71,7 @@ export const updateFactory = async (req, res, next) => {
     return ok(res, updatedFactory, req.t("factory.updateSuccess"));
   } catch (err) {
     console.error("Update Factory Error:", err);
-    return fail(res, req.t("server.internalError"), 500);
+    return next(err);
   }
 };
 
@@ -88,6 +88,6 @@ export const deleteFactory = async (req, res, next) => {
     return ok(res, null, req.t("factory.deleteSuccess"));
   } catch (err) {
     console.error("Delete Factory Error:", err);
-    return fail(res, req.t("server.internalError"), 500);
+    return next(err);
   }
 };

@@ -50,10 +50,24 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    // Nếu lỗi là 401 hoặc 403 (Token hết hạn hoặc không hợp lệ)
-    if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-      // Kích hoạt sự kiện forceLogout để AuthContext xử lý
-      window.dispatchEvent(new Event("forceLogout"));
+    if (error.response) {
+      if (error.response.status === 401 || error.response.status === 403) {
+        window.dispatchEvent(new Event("forceLogout"));
+      }
+      
+      if (error.response.status >= 500) {
+        window.dispatchEvent(
+          new CustomEvent("globalError", {
+            detail: error.response.data?.message || "Lỗi hệ thống máy chủ (5xx)",
+          })
+        );
+      }
+    } else {
+      window.dispatchEvent(
+        new CustomEvent("globalError", {
+          detail: "Không thể kết nối đến máy chủ. Vui lòng kiểm tra mạng.",
+        })
+      );
     }
     return Promise.reject(error);
   }

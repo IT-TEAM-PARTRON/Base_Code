@@ -104,6 +104,6 @@ export const deleteDepartment = async (req, res, next) => {
     return ok(res, null, req.t("department.deleteSuccess"));
   } catch (err) {
     console.error("Delete Department Error:", err);
-    return fail(res, req.t("server.internalError"), 500);
+    return next(err);
   }
 };
