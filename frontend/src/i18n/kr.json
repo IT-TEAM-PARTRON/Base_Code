@@ -24,6 +24,7 @@
   "table": {
     "no": "번호",
     "id": "ID",
+    "empty": "데이터 없음",
     "showing": "표시 중",
     "of": "/",
     "pagination": {
@@ -84,7 +85,7 @@
     "users": "사용자",
     "search": "ID 또는 이름으로 검색...",
     "full_name": "이름 입력",
-    "password": "비밀번호 입력",
+    "password": "비밀번호",
     "hide_password": "비밀번호 숨기기",
     "unhide_password": "비밀번호 표시",
     "btn_create": "생성",
@@ -107,6 +108,7 @@
   },
   "admin_roles": {
     "roleid": "권한 ID",
+    "description": "설명",
     "roles": "권한",
     "search": "권한 이름으로 검색..."
   },

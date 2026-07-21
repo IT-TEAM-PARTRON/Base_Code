@@ -289,6 +289,14 @@ export default function Role() {
                   }
                   labelWidth="100px"
                 />
+                <CustomInput
+                  label={t("admin_roles.description", "Description")}
+                  value={formData.DESCRIPTION || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, DESCRIPTION: e.target.value })
+                  }
+                  labelWidth="100px"
+                />
               </div>
 
               </CustomSection>

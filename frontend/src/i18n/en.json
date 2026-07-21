@@ -24,6 +24,7 @@
   "table": {
     "no": "NO",
     "id": "ID",
+    "empty": "No data",
     "showing": "Showing",
     "of": "of",
     "pagination": {
@@ -84,7 +85,7 @@
     "users": "Users",
     "search": "Search by ID or Name...",
     "full_name": "Enter full name",
-    "password": "Password",
+    "password": "PASSWORD",
     "hide_password": "Hide password",
     "unhide_password": "Show password",
     "btn_create": "Create",
@@ -107,6 +108,7 @@
   },
   "admin_roles": {
     "roleid": "ROLEID",
+    "description": "DESCRIPTION",
     "roles": "Roles",
     "search": "Search by Role Name..."
   },
@@ -134,7 +136,7 @@
   "admin_factory": {
     "factoryid": "FACTORYID",
     "factory_id": "Factory ID",
-    "description": "Description",
+    "description": "DESCRIPTION",
     "event_time": "Event Time",
     "factories": "Factories",
     "search": "Search Factory..."

@@ -24,6 +24,7 @@
   "table": {
     "no": "STT",
     "id": "ID",
+    "empty": "Không có dữ liệu",
     "showing": "Đang hiển thị",
     "of": "trên",
     "pagination": {
@@ -84,7 +85,7 @@
     "users": "Người dùng",
     "search": "Tìm theo ID hoặc Tên...",
     "full_name": "Nhập họ tên",
-    "password": "Nhập mật khẩu",
+    "password": "Mật khẩu",
     "hide_password": "Ẩn mật khẩu",
     "unhide_password": "Hiện mật khẩu",
     "btn_create": "Tạo mới",
@@ -107,6 +108,7 @@
   },
   "admin_roles": {
     "roleid": "Mã quyền",
+    "description": "Mô tả",
     "roles": "Quyền hạn",
     "search": "Tìm theo tên quyền hạn..."
   },
