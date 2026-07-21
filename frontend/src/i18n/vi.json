@@ -1,0 +1,152 @@
+{
+  "language": {
+    "en": "Tiếng Anh",
+    "vi": "Tiếng Việt",
+    "ko": "Tiếng Hàn"
+  },
+  "login": {
+    "title": "Đăng nhập",
+    "email": "Tên đăng nhập",
+    "password": "Mật khẩu",
+    "sign_in": "Đăng nhập",
+    "signing_in": "Đang đăng nhập...",
+    "show_password": "Hiện mật khẩu",
+    "hide_password": "Ẩn mật khẩu",
+    "remember_me": "Ghi nhớ"
+  },
+  "modal": {
+    "title-add": "Thêm mới",
+    "title-edit": "Chỉnh sửa",
+    "title-confirm": "Xác nhận",
+    "btn-confirm": "Xác nhận",
+    "btn-cancel": "Hủy"
+  },
+  "table": {
+    "no": "STT",
+    "id": "ID",
+    "showing": "Đang hiển thị",
+    "of": "trên",
+    "pagination": {
+      "previous": "Trước",
+      "next": "Sau"
+    }
+  },
+  "general_error": {
+    "title": "Lỗi",
+    "get_users_failed": "Tải danh sách người dùng thất bại.",
+    "connecttion_error": "Lỗi kết nối. Vui lòng kiểm tra mạng và thử lại.",
+    "unknown_error": "Lỗi không xác định. Vui lòng thử lại sau."
+  },
+  "general_title": {
+    "error": "Lỗi",
+    "warning": "Cảnh báo",
+    "success": "Thành công",
+    "info": "Thông tin"
+  },
+  "general_success": {
+    "title": "Thành công"
+  },
+  "header": {
+    "logout": "Đăng xuất",
+    "change_password": "Đổi mật khẩu"
+  },
+  "sidebar": {
+    "general_info": "Thông tin chung",
+    "admin": "QUẢN TRỊ",
+    "admin_users": "Người dùng",
+    "admin_roles": "Quyền hạn",
+    "admin_mapping": "Menu người dùng",
+    "admin_translation": "Ngôn ngữ",
+    "admin_factory": "Nhà máy",
+    "admin_department": "Bộ phận"
+  },
+  "modal_change_password": {
+    "title": "Đổi mật khẩu",
+    "current_password": "Mật khẩu hiện tại",
+    "new_password": "Mật khẩu mới",
+    "confirm_password": "Xác nhận mật khẩu",
+    "btn_confirm": "Xác nhận",
+    "btn_cancel": "Hủy",
+    "saving": "Đang lưu...",
+    "error1": "Vui lòng nhập cả mật khẩu mới và xác nhận mật khẩu.",
+    "error2": "Mật khẩu xác nhận không khớp!",
+    "error3": "Mật khẩu mới phải có ít nhất 4 ký tự.",
+    "success": "Đổi mật khẩu thành công!"
+  },
+  "admin_users": {
+    "userid": "Tài khoản",
+    "fullname": "Họ và tên",
+    "roleid": "Mã quyền",
+    "factoryid": "Mã nhà máy",
+    "departmentid": "Mã bộ phận",
+    "status": "Trạng thái",
+    "list": "DANH SÁCH",
+    "users": "Người dùng",
+    "search": "Tìm theo ID hoặc Tên...",
+    "full_name": "Nhập họ tên",
+    "password": "Nhập mật khẩu",
+    "hide_password": "Ẩn mật khẩu",
+    "unhide_password": "Hiện mật khẩu",
+    "btn_create": "Tạo mới",
+    "btn_update": "Cập nhật",
+    "btn_delete": "Xóa",
+    "btn_clear": "Làm sạch",
+    "saving": "Đang lưu...",
+    "form_edit": "CHỈNH SỬA",
+    "confirm_delete": "Xác nhận",
+    "content1": "Bạn có chắc chắn muốn xóa tài khoản ",
+    "content2": "? Hành động này không thể hoàn tác.",
+    "confirm": "Xác nhận",
+    "cancel": "Hủy",
+    "error": "Lỗi",
+    "warning": "Cảnh báo",
+    "success": "Thành công",
+    "create_error1": "Tên đăng nhập đã tồn tại. Vui lòng chọn tên khác.",
+    "create_error2": "Vui lòng điền đầy đủ thông tin bắt buộc trước khi tạo tài khoản.",
+    "update_error1": "Không có thay đổi nào được phát hiện. Vui lòng chỉnh sửa trước khi cập nhật."
+  },
+  "admin_roles": {
+    "roleid": "Mã quyền",
+    "roles": "Quyền hạn",
+    "search": "Tìm theo tên quyền hạn..."
+  },
+  "admin_mapping": {
+    "role_name": "Tên quyền",
+    "info1": "Chọn danh sách cần phân quyền và nhấn lưu.",
+    "info2": "Bạn không có quyền xóa thông tin này.",
+    "btn_return": "Quay lại",
+    "btn_save": "Lưu"
+  },
+  "admin_translation": {
+    "description": "Mô tả",
+    "en": "Tiếng Anh (EN)",
+    "kr": "Tiếng Hàn (KR)",
+    "vi": "Tiếng Việt (VI)",
+    "btn_export": "Xuất",
+    "btn_import": "Nhập",
+    "btn_importing": "Đang nhập...",
+    "btn_exporting": "Đang xuất...",
+    "update_success": "Cập nhật bản dịch thành công!",
+    "update_error": "Không có nội dung thay đổi nào. Vui lòng chỉnh sửa thông tin trước khi cập nhật.",
+    "import_error": "Định dạng file không đúng. Vui lòng kiểm tra lại file.",
+    "import_error1": "File dữ liệu không đúng. Vui lòng kiểm tra lại file."
+  },
+  "admin_factory": {
+    "factoryid": "Mã nhà máy",
+    "factory_id": "Mã nhà máy",
+    "description": "Mô tả",
+    "event_time": "Thời gian",
+    "factories": "Nhà máy",
+    "search": "Tìm nhà máy..."
+  },
+  "admin_department": {
+    "factoryid": "Mã nhà máy",
+    "departmentid": "Mã bộ phận",
+    "factory_id": "Nhà máy",
+    "department_id": "Mã bộ phận",
+    "event_user": "Người thực hiện",
+    "event_time": "Thời gian",
+    "departments": "Bộ phận",
+    "search": "Tìm bộ phận..."
+  }
+}

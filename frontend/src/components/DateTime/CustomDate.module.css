@@ -1,0 +1,76 @@
+/* ─────────────────────────────────────────
+   CustomDate.module.css
+───────────────────────────────────────── */
+
+/* ── Wrapper (Giống hệt CustomComboBox) ── */
+.wrapper {
+  display: grid;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ── Label ── */
+.labelWrap {
+  display: flex;
+  align-items: center;
+}
+
+.labelText {
+  font-size: 15px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.required {
+  color: #ef4444;
+}
+
+/* ── Input Container ── */
+.inputContainer {
+  position: relative;
+  flex: 1;
+  width: 100%;
+}
+
+/* ── Flatpickr Input ── */
+.flatpickrInput {
+  width: 100%;
+  height: 30px;
+  background-color: #fdfeff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 4px 36px 4px 10px;
+  font-size: 14px;
+  color: #000000;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
+}
+
+/* Khi người dùng click vào ô input */
+.flatpickrInput:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.25);
+}
+
+.flatpickrInput::placeholder {
+  color: #94a3b8;
+}
+
+/* ── Trạng thái Disabled ── */
+.inputDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #f8fafc;
+}
+
+/* ── Icon Cuốn Lịch ── */
+.calendarIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a1a1a1;
+  /* Lệnh này giúp click xuyên qua icon để mở lịch */
+  pointer-events: none;
+}

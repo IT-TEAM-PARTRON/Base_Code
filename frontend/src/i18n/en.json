@@ -1,0 +1,152 @@
+{
+  "language": {
+    "en": "English",
+    "vi": "Vietnamese",
+    "ko": "Korean"
+  },
+  "login": {
+    "title": "Login",
+    "email": "Username",
+    "password": "Password",
+    "sign_in": "Sign In",
+    "signing_in": "Signing in...",
+    "show_password": "Show password",
+    "hide_password": "Hide password",
+    "remember_me": "Remember me"
+  },
+  "modal": {
+    "title-add": "Add",
+    "title-edit": "Edit",
+    "title-confirm": "Confirm",
+    "btn-confirm": "Confirm",
+    "btn-cancel": "Cancel"
+  },
+  "table": {
+    "no": "NO",
+    "id": "ID",
+    "showing": "Showing",
+    "of": "of",
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    }
+  },
+  "general_error": {
+    "title": "Error",
+    "get_users_failed": "Failed to load user list",
+    "connecttion_error": "Connection error. Please check your network and try again.",
+    "unknown_error": "An unknown error occurred. Please try again later."
+  },
+  "general_title": {
+    "error": "Error",
+    "warning": "Warning",
+    "success": "Success",
+    "info": "Info"
+  },
+  "general_success": {
+    "title": "Success"
+  },
+  "header": {
+    "logout": "Logout",
+    "change_password": "Change Password"
+  },
+  "sidebar": {
+    "general_info": "General Info",
+    "admin": "ADMIN",
+    "admin_users": "User",
+    "admin_roles": "Role",
+    "admin_mapping": "User Menu",
+    "admin_translation": "Language",
+    "admin_factory": "Factory",
+    "admin_department": "Department"
+  },
+  "modal_change_password": {
+    "title": "Change Password",
+    "current_password": "Current Password",
+    "new_password": "New Password",
+    "confirm_password": "Confirm Password",
+    "btn_confirm": "Confirm",
+    "btn_cancel": "Cancel",
+    "saving": "Saving...",
+    "error1": "Please fill in both new password and confirm password.",
+    "error2": "Confirm password does not match!",
+    "error3": "New password must be at least 4 characters long.",
+    "success": "Password changed successfully!"
+  },
+  "admin_users": {
+    "userid": "USERID",
+    "fullname": "FULLNAME",
+    "roleid": "ROLEID",
+    "factoryid": "FACTORYID",
+    "departmentid": "DEPARTMENTID",
+    "status": "STATUS",
+    "list": "LIST",
+    "users": "Users",
+    "search": "Search by ID or Name...",
+    "full_name": "Enter full name",
+    "password": "Password",
+    "hide_password": "Hide password",
+    "unhide_password": "Show password",
+    "btn_create": "Create",
+    "btn_update": "Update",
+    "btn_delete": "Delete",
+    "btn_clear": "Clear",
+    "saving": "Saving...",
+    "form_edit": "EDITOR",
+    "confirm_delete": "Confirm",
+    "content1": "Are you sure you want to delete the account ",
+    "content2": "? This action cannot be undone.",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "error": "Error",
+    "warning": "Warning",
+    "success": "Success",
+    "create_error1": "User Name exists. Please choose a different User Name.",
+    "create_error2": "Please fill in all required information before creating a new account.",
+    "update_error1": "No changes detected. Please modify the information before updating."
+  },
+  "admin_roles": {
+    "roleid": "ROLEID",
+    "roles": "Roles",
+    "search": "Search by Role Name..."
+  },
+  "admin_mapping": {
+    "role_name": "ROLE NAME",
+    "info1": "Select the role to be mapped to the permission and then click Save to save the mapping.",
+    "info2": "You do not have the right to remove this information.",
+    "btn_return": "Return",
+    "btn_save": "Save"
+  },
+  "admin_translation": {
+    "description": "DESCRIPTION",
+    "en": "EN",
+    "kr": "KR",
+    "vi": "VI",
+    "btn_export": "Export",
+    "btn_import": "Import",
+    "btn_importing": "Importing...",
+    "btn_exporting": "Exporting...",
+    "update_success": "Translation updated successfully!",
+    "update_error": "No changes detected. Please modify the information before updating.",
+    "import_error": "File format is incorrect. Please check the file again.",
+    "import_error1": "Data file is incorrect. Please check the file again."
+  },
+  "admin_factory": {
+    "factoryid": "FACTORYID",
+    "factory_id": "Factory ID",
+    "description": "Description",
+    "event_time": "Event Time",
+    "factories": "Factories",
+    "search": "Search Factory..."
+  },
+  "admin_department": {
+    "factoryid": "FACTORYID",
+    "departmentid": "DEPARTMENTID",
+    "factory_id": "Factory",
+    "department_id": "Department ID",
+    "event_user": "Event User",
+    "event_time": "Event Time",
+    "departments": "Departments",
+    "search": "Search Department..."
+  }
+}
