@@ -11,7 +11,7 @@ const CustomComboBox = forwardRef(
       options = [],
       disabled = false,
       width = "100%", // Đổi mặc định thành 100% để nó tự fill theo Grid
-      labelWidth = "160px", // THÊM PROP NÀY (Giống hệt CustomInput)
+      labelWidth = "140px", // THÊM PROP NÀY (Giống hệt CustomInput)
       placeholder = "",
       ...rest
     },

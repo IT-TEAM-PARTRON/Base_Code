@@ -8,7 +8,7 @@ const CustomInput = forwardRef(({
   className = "",
   labelClassName = "",
   width = "100%",
-  labelWidth = "160px",
+  labelWidth = "140px",
   ...inputProps
 }, ref) => {
   return (

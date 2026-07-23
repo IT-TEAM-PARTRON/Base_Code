@@ -11,7 +11,7 @@ const CustomMultiSelect = forwardRef(
       options = [],
       disabled = false,
       width = "100%", 
-      labelWidth = "160px", 
+      labelWidth = "140px", 
       ...rest
     },
     forwardedRef,

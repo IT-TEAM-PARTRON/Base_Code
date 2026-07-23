@@ -52,7 +52,13 @@ export default function Login() {
 
       login({ userInfo: data });
 
-      navigate("/home");
+      const permissions = (data?.DESCRIPTION || "")
+      if (permissions.length === 0) {
+        navigate("/home");
+      }
+      else {
+        navigate("/home");
+      }
     } catch (err) {
       if (err.response && err.response.status > 500) {
         setErrorMsg(t("general_error.connecttion_error"));

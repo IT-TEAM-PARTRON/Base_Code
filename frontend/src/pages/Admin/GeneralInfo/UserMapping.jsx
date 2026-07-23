@@ -134,6 +134,12 @@ export default function UserMapping() {
         if (origKey) parsedPerms[origKey] = true;
       });
     }
+
+    // Đảm bảo Role ADMIN luôn được gán cứng quyền ADMIN_USER
+    if (role.ROLEID === "ADMIN") {
+      parsedPerms["ADMIN_USER"] = true;
+    }
+
     setPerms(parsedPerms);
     setSavedPerms(parsedPerms);
   };
@@ -265,12 +271,12 @@ export default function UserMapping() {
                             }}
                           >
                             <div className={styles.itemLeft}>
-                              <div 
+                              <div
                                 className={`${styles.checkbox} ${state === 2 ? styles.checked : ""}`}
                                 onClick={(e) => handleToggleNode(e, node)}
                               >
                                 {state === 2 && <TbCheck size={12} />}
-                                {state === 1 && <div style={{width: 8, height: 2, background: "white", borderRadius: 2}}></div>}
+                                {state === 1 && <div style={{ width: 8, height: 2, background: "white", borderRadius: 2 }}></div>}
                               </div>
                               <span className={styles.itemName}>{t(node.titleKey)}</span>
                             </div>

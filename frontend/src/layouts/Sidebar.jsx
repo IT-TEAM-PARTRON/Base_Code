@@ -24,7 +24,7 @@ export default function Sidebar({ isCollapsed, onToggle, activeGroup }) {
 
   const hasPermission = (perm) => {
     if (!perm) return true;
-    if (permissions.length === 0) return true;
+    if (permissions.length === 0) return false;
     return permissions.includes(normalizePermission(perm));
   };
 

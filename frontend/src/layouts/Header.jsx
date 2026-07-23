@@ -51,7 +51,7 @@ export default function Header({ onToggleSidebar, onForceOpenSidebar }) {
 
   const hasPermission = (perm) => {
     if (!perm) return true;
-    if (permissions.length === 0) return true;
+    if (permissions.length === 0) return false;
     return permissions.includes(normalizePermission(perm));
   };
 

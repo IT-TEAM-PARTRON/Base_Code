@@ -45,7 +45,8 @@ export const getTrueTime = () => {
  * ───────────────────────────────────────────────────────── */
 // Format: YYYY-MM-DD HH:MM:SS : "2023-10-05 14:48:00"
 export function formatDateTime(iso) {
-  const d = iso ? new Date(iso) : getTrueTime();
+  if (iso === null) return ""; // NULL từ DB = chưa có dữ liệu, không phải "lấy giờ hiện tại"
+  const d = iso !== undefined ? new Date(iso) : getTrueTime();
   if (isNaN(d.getTime())) return "";
 
   const year = d.getFullYear();
@@ -59,15 +60,17 @@ export function formatDateTime(iso) {
 }
 // Ví dụ: "2023-10-05T14:48:00.000Z" => "21:48:00 05/10/2023"
 export function formatDate(iso) {
-  // Nếu có iso thì dùng nó, nếu không có thì lấy giờ đồng bộ
-  const d = iso ? new Date(iso) : getTrueTime();
+  if (iso === null) return "";
+  // Nếu có iso thì dùng nó, nếu không có (undefined) thì lấy giờ đồng bộ
+  const d = iso !== undefined ? new Date(iso) : getTrueTime();
   if (isNaN(d.getTime())) return "";
   return d.toLocaleString("vi");
 }
 
 // Định dạng ngày theo chuẩn ISO : "2023-10-05"
 export function formatDateISO(iso) {
-  const d = iso ? new Date(iso) : getTrueTime();
+  if (iso === null) return "";
+  const d = iso !== undefined ? new Date(iso) : getTrueTime();
   if (isNaN(d.getTime())) return "";
 
   const year = d.getFullYear();
@@ -79,7 +82,8 @@ export function formatDateISO(iso) {
 
 // Format: YYYY-MM-DD HH:MM AM/PM
 export function formatDateTimeAMPM(iso) {
-  const d = iso ? new Date(iso) : getTrueTime();
+  if (iso === null) return "";
+  const d = iso !== undefined ? new Date(iso) : getTrueTime();
   if (isNaN(d.getTime())) return "";
 
   const year = d.getFullYear();
