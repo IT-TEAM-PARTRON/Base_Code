@@ -23,7 +23,7 @@ import {
   getAllTranslations,
   updateTranslation,
   importTranslations,
-} from "../../../api/admin/adminApi.js";
+} from "../../../api/admin/generalApi.js";
 import { useTranslation } from "react-i18next";
 
 const EMPTY_FORM = { ID: "", EN: "", VI: "", KR: "", DESCRIPTION: "" };
@@ -181,17 +181,17 @@ export default function TranslationSpecs() {
       width: "250px",
     },
     {
-      key: "EN", title: t("admin_translation.en", "EN"), dataIndex: "EN", 
+      key: "EN", title: t("admin_translation.en", "EN"), dataIndex: "EN",
       align: "left",
       width: "250px",
     },
     {
-      key: "KR", title: t("admin_translation.kr", "KR"), dataIndex: "KR", 
+      key: "KR", title: t("admin_translation.kr", "KR"), dataIndex: "KR",
       align: "left",
       width: "250px",
     },
     {
-      key: "VI", title: t("admin_translation.vi", "VI"), dataIndex: "VI", 
+      key: "VI", title: t("admin_translation.vi", "VI"), dataIndex: "VI",
       align: "left",
       width: "250px",
     },
@@ -242,20 +242,20 @@ export default function TranslationSpecs() {
                     accept=".xlsx, .xls"
                     onChange={handleImportExcel}
                   />
-                  
+
                   <button
                     className={styles.textButton}
                     onClick={() => fileInputRef.current.click()}
-                    
+
                   >
                     <TbUpload size={16} />
                     {t("admin_translation.btn_import")}
                   </button>
-                  
+
                   <button
                     className={styles.textButton}
                     onClick={handleExportExcel}
-                    
+
                   >
                     <TbDownload size={16} />
                     {t("admin_translation.btn_export")}
@@ -297,7 +297,7 @@ export default function TranslationSpecs() {
               }
             >
               <div className={styles.topActionButtons}>
-                
+
                 <button
                   className={styles.textButton}
                   onClick={handleUpdate}
@@ -308,7 +308,7 @@ export default function TranslationSpecs() {
                     ? t("admin_users.saving")
                     : t("admin_users.btn_update")}
                 </button>
-              
+
               </div>
 
               <div className={styles.formContainer}>
@@ -355,7 +355,7 @@ export default function TranslationSpecs() {
                 />
               </div>
 
-              </CustomSection>
+            </CustomSection>
           </div>
         </div>
       </div>

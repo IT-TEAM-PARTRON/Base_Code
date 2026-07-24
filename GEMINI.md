@@ -28,6 +28,7 @@
 - **Routing:** Sử dụng React Router và phân quyền theo từng Route.
 - **Permission:** Menu và chức năng hiển thị dựa trên quyền của người dùng sau khi đăng nhập.
 - **Responsive:** Ưu tiên giao diện Desktop, đồng thời đảm bảo hiển thị tốt trên các độ phân giải phổ biến.
+- **Phát triển chức năng mới:** Khi xây dựng giao diện mới, ưu tiên tối đa việc tái sử dụng các components chung đã có. Bắt buộc triển khai đa ngôn ngữ (i18n) ngay từ đầu. Khi viết các hàm gọi dữ liệu, phải sử dụng cấu hình từ file `api.js`.
 
 # Quy chuẩn Backend (Node.js)
 
@@ -40,6 +41,12 @@
 - **Error Handling:** Trả về mã HTTP chuẩn cùng thông báo lỗi rõ ràng.
 - **Deployment:** Server chạy trên môi trường Windows.
 - **Logging:** Thiết kế log đơn giản, dễ đọc, tập trung vào việc hỗ trợ kiểm tra lỗi và theo dõi thao tác người dùng.
+- **Kiến trúc (Architecture):** Tôn trọng tuyệt đối cấu trúc `models-controllers-routes`. Không sử dụng thư mục/tầng `services`. 
+  - **Tầng Model:** Phải được định nghĩa dưới dạng một `Class` (Ví dụ: `export default class FactoryModel { ... }`).
+  - Class bao gồm một `constructor` để khởi tạo các thuộc tính ánh xạ 1-1 với các trường trong Database.
+  - Các thao tác với Cơ sở dữ liệu (CRUD) phải được định nghĩa thành các phương thức tĩnh (`static async`) bên trong Class đó và trả về instance của Class (ví dụ: `new FactoryModel(row)`).
+  - Tầng Controller sẽ gọi trực tiếp các phương thức tĩnh này để lấy dữ liệu (VD: `await FactoryModel.getAllFactories()`).
+- **Tái sử dụng (Reusability):** Khi triển khai các chức năng mới, ưu tiên tối đa việc tái sử dụng các hàm đã có trong thư mục `middlewares`.
 
 # Quy chuẩn Database (MariaDB)
 

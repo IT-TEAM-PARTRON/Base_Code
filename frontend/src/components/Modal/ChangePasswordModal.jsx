@@ -6,7 +6,7 @@ import CustomInput from "../Input/CustomInput.jsx";
 import CustomButton from "../Button/CustomButton.jsx";
 import styles from "./ChangePasswordModal.module.css";
 import CustomAlertModal from "../../components/Modal/CustomAlertModal.jsx";
-import { changeUserPassword } from "../../api/admin/adminApi.js";
+import { changeUserPassword } from "../../api/admin/generalApi.js";
 
 export default function ChangePasswordModal({ isOpen, onClose, user }) {
   const { t } = useTranslation();
@@ -131,7 +131,7 @@ export default function ChangePasswordModal({ isOpen, onClose, user }) {
                 onChange={handleChange}
                 labelWidth="150px"
                 disabled={isSaving}
-                style = {{textTransform: "none"}}
+                style={{ textTransform: "none" }}
               />
               <button
                 type="button"
@@ -154,7 +154,7 @@ export default function ChangePasswordModal({ isOpen, onClose, user }) {
                 labelWidth="150px"
                 disabled={isSaving}
                 error={!!error}
-                style = {{textTransform: "none"}}
+                style={{ textTransform: "none" }}
               />
               <button
                 type="button"
@@ -190,7 +190,7 @@ export default function ChangePasswordModal({ isOpen, onClose, user }) {
             icon={<TbDeviceFloppy size={18} />}
             onClick={handleSave}
             disabled={isSaving}
-            style ={{textTransform: "none"}}
+            style={{ textTransform: "none" }}
           >
             {isSaving
               ? t("modal_change_password.saving")

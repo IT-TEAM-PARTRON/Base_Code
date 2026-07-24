@@ -28,7 +28,7 @@ import {
   getRoles,
   getAllFactories,
   getDepartmentsByFactory,
-} from "../../../api/admin/adminApi.js";
+} from "../../../api/admin/generalApi.js";
 import { useTranslation } from "react-i18next";
 
 const EMPTY_FORM = {
@@ -118,7 +118,7 @@ export default function UserSpecs() {
         setFactoryOptions(
           data.map((item) => ({
             value: item.FACTORYID,
-            label: item.FACTORYID ,
+            label: item.FACTORYID,
           })),
         );
       }
@@ -423,7 +423,7 @@ export default function UserSpecs() {
               }
             >
               <div className={styles.topActionButtons}>
-                
+
                 <button
                   className={styles.textButton}
                   onClick={handleActionCreate}
@@ -435,7 +435,7 @@ export default function UserSpecs() {
                     : t("admin_users.btn_create")}
                 </button>
 
-                
+
                 <button
                   className={styles.textButton}
                   onClick={handleActionUpdate}
@@ -447,7 +447,7 @@ export default function UserSpecs() {
                     : t("admin_users.btn_update")}
                 </button>
 
-                
+
                 <button
                   className={styles.textButton}
                   onClick={() => handleDeleteClick(formData.ID)}
@@ -456,7 +456,7 @@ export default function UserSpecs() {
                   <TbTrash size={16} />
                   {t("admin_users.btn_delete")}
                 </button>
-              
+
               </div>
 
               <div className={styles.formContainer}>
@@ -554,7 +554,7 @@ export default function UserSpecs() {
               </div>
 
               {/* ── Khu vực các nút bấm (Create, Update, Delete) ── */}
-              </CustomSection>
+            </CustomSection>
           </div>
         </div>
       </div>

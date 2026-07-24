@@ -23,7 +23,7 @@ import {
   createRole,
   updateRole,
   deleteRole,
-} from "../../../api/admin/adminApi.js";
+} from "../../../api/admin/generalApi.js";
 import { useTranslation } from "react-i18next";
 
 const EMPTY_FORM = {
@@ -179,7 +179,7 @@ export default function Role() {
       align: "left",
       render: (row) => <span>{row.ROLEID}</span>,
     },
-    
+
   ];
 
   return (
@@ -247,7 +247,7 @@ export default function Role() {
               }
             >
               <div className={styles.topActionButtons}>
-                
+
                 <button
                   className={styles.textButton}
                   onClick={handleActionCreate}
@@ -257,7 +257,7 @@ export default function Role() {
                   {isSaving ? t("admin_users.saving") : t("admin_users.btn_create")}
                 </button>
 
-                
+
                 <button
                   className={styles.textButton}
                   onClick={handleActionUpdate}
@@ -267,7 +267,7 @@ export default function Role() {
                   {isSaving ? t("admin_users.saving") : t("admin_users.btn_update")}
                 </button>
 
-                
+
                 <button
                   className={styles.textButton}
                   onClick={() => handleDeleteClick(formData.ID)}
@@ -276,7 +276,7 @@ export default function Role() {
                   <TbTrash size={16} />
                   {t("admin_users.btn_delete")}
                 </button>
-              
+
               </div>
 
               <div className={styles.formContainer}>
@@ -299,7 +299,7 @@ export default function Role() {
                 />
               </div>
 
-              </CustomSection>
+            </CustomSection>
           </div>
         </div>
       </div>

@@ -16,7 +16,7 @@ import {
   TbRefresh,
 } from "react-icons/tb";
 
-import { getRoles, updateRolePermission } from "../../../api/admin/adminApi.js";
+import { getRoles, updateRolePermission } from "../../../api/admin/generalApi.js";
 import { useTranslation } from "react-i18next";
 import { MENU_CONFIG } from "../../../layouts/menuConfig.js";
 

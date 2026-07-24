@@ -25,7 +25,7 @@ import {
   updateDepartment,
   deleteDepartment,
   getAllFactories,
-} from "../../../api/admin/adminApi.js";
+} from "../../../api/admin/generalApi.js";
 import { useTranslation } from "react-i18next";
 
 const EMPTY_FORM = {
@@ -75,7 +75,7 @@ export default function DepartmentSpecs() {
         setFactoryOptions(
           data.map((item) => ({
             value: item.FACTORYID,
-            label:item.FACTORYID,
+            label: item.FACTORYID,
           })),
         );
       }
@@ -135,7 +135,7 @@ export default function DepartmentSpecs() {
       (d) =>
         d.FACTORYID === formData.FACTORYID.trim() &&
         d.DEPARTMENTID.toLowerCase() ===
-          formData.DEPARTMENTID.trim().toLowerCase(),
+        formData.DEPARTMENTID.trim().toLowerCase(),
     );
     if (isDuplicate) {
       showAlert(
@@ -244,7 +244,7 @@ export default function DepartmentSpecs() {
       width: "150px",
       render: (row) => <span>{row.DEPARTMENTID}</span>,
     },
-   
+
   ];
 
   return (
@@ -314,7 +314,7 @@ export default function DepartmentSpecs() {
               }
             >
               <div className={styles.topActionButtons}>
-                
+
                 <button
                   className={styles.textButton}
                   onClick={handleActionCreate}
@@ -325,7 +325,7 @@ export default function DepartmentSpecs() {
                     ? t("admin_users.saving")
                     : t("admin_users.btn_create")}
                 </button>
-                
+
                 <button
                   className={styles.textButton}
                   onClick={handleActionUpdate}
@@ -336,7 +336,7 @@ export default function DepartmentSpecs() {
                     ? t("admin_users.saving")
                     : t("admin_users.btn_update")}
                 </button>
-                
+
                 <button
                   className={styles.textButton}
                   onClick={() => handleDeleteClick(formData.ID)}
@@ -345,7 +345,7 @@ export default function DepartmentSpecs() {
                   <TbTrash size={16} />
                   {t("admin_users.btn_delete")}
                 </button>
-              
+
               </div>
 
               <div className={styles.formContainer}>
@@ -373,7 +373,7 @@ export default function DepartmentSpecs() {
                 />
               </div>
 
-              </CustomSection>
+            </CustomSection>
           </div>
         </div>
       </div>
