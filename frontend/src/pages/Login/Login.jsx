@@ -8,7 +8,7 @@ import partronLoginImg from "../../assets/icons/partron_login.png";
 import bgLogin from "../../assets/icons/bg_login.png";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "../../components/LanguageSwitcher/LanguageSwitcher.jsx";
-
+import { MENU_CONFIG } from "../../layouts/menuConfig.js";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -52,12 +52,34 @@ export default function Login() {
 
       login({ userInfo: data });
 
-      const permissions = (data?.DESCRIPTION || "")
-      if (permissions.length === 0) {
+      const permissions = (data?.DESCRIPTION || "");
+      const normalizePermission = (value = "") =>
+        value.toString().trim().toUpperCase().replace(/[\s\-_]+/g, "");
+      
+      const permissionsList = permissions
+        .split(",")
+        .map(normalizePermission)
+        .filter(Boolean);
+
+      if (permissionsList.length === 0) {
         navigate("/home");
-      }
-      else {
-        navigate("/home");
+      } else {
+        const findFirstPermittedPath = (items) => {
+          for (const item of items) {
+            if (item.items) {
+              const path = findFirstPermittedPath(item.items);
+              if (path) return path;
+            } else {
+              if (permissionsList.includes(normalizePermission(item.key))) {
+                return item.path;
+              }
+            }
+          }
+          return null;
+        };
+        
+        const foundPath =  findFirstPermittedPath(MENU_CONFIG);
+        navigate(foundPath || "/home");
       }
     } catch (err) {
       if (err.response && err.response.status > 500) {
