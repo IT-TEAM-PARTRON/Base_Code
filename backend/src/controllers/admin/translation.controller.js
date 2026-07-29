@@ -1,6 +1,6 @@
-import { ok, fail } from "../middlewares/responseHandler.js";
-import TranslationModel from "../models/translation.model.js";
-import i18nManager from "../locales/i18n.js";
+import { ok, fail } from "../../middlewares/responseHandler.js";
+import TranslationModel from "../../models/translation.model.js";
+import i18nManager from "../../locales/i18n.js";
 
 export const getAllTranslations = async (req, res) => {
   try {

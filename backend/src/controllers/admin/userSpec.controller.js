@@ -1,5 +1,5 @@
-import {ok, fail} from "../middlewares/responseHandler.js";
-import  UserModel from "../models/userSpec.model.js";
+import {ok, fail} from "../../middlewares/responseHandler.js";
+import  UserModel from "../../models/userSpec.model.js";
 
 export const getAllUsers = async (req, res, next) => {
     try {

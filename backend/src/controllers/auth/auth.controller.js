@@ -1,7 +1,7 @@
-import AuthUser from "../models/auth.model.js";
-import { comparePassword } from "../utils/hash.js";
-import { createToken } from "../utils/jwt.js";
-import { ok, fail } from "../middlewares/responseHandler.js";
+import AuthUser from "../../models/auth.model.js";
+import { comparePassword } from "../../utils/hash.js";
+import { createToken } from "../../utils/jwt.js";
+import { ok, fail } from "../../middlewares/responseHandler.js";
 
 export const login = async (req, res, next) => {
   try {

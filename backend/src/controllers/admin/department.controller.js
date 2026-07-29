@@ -1,5 +1,5 @@
-import { ok, fail } from "../middlewares/responseHandler.js";
-import DepartmentModel from "../models/department.model.js";
+import { ok, fail } from "../../middlewares/responseHandler.js";
+import DepartmentModel from "../../models/department.model.js";
 
 // Lấy toàn bộ danh sách Department
 export const getAllDepartments = async (req, res, next) => {
