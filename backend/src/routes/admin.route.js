@@ -6,27 +6,27 @@ import {
   getAllUsers,
   updateUser,
   changeUserPassword,
-} from "../controllers/userSpec.controller.js";
-import { getAllRoles, createRole, updateRole, deleteRole } from "../controllers/role.controller.js";
-import { updateRolePermission } from "../controllers/mapping.controller.js";
+} from "../controllers/admin/userSpec.controller.js";
+import { getAllRoles, createRole, updateRole, deleteRole } from "../controllers/admin/role.controller.js";
+import { updateRolePermission } from "../controllers/admin/mapping.controller.js";
 import {
   getAllTranslations,
   updateTranslation,
   importTranslations,
-} from "../controllers/translation.controller.js";
+} from "../controllers/admin/translation.controller.js";
 import {
   getAllFactories,
   createFactory,
   updateFactory,
   deleteFactory,
-} from "../controllers/factory.controller.js";
+} from "../controllers/admin/factory.controller.js";
 import {
   getAllDepartments,
   getDepartmentsByFactory,
   createDepartment,
   updateDepartment,
   deleteDepartment,
-} from "../controllers/department.controller.js";
+} from "../controllers/admin/department.controller.js";
 // DataSpec controller đã được xóa (không còn nghiệp vụ nguyên vật liệu)
 
 const router = express.Router();

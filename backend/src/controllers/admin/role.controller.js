@@ -1,5 +1,5 @@
 import { ok, fail } from "../../middlewares/responseHandler.js";
-import RoleModel from "../../models/role.model.js";
+import RoleModel from "../../models/admin/role.model.js";
 
 // Lấy toàn bộ danh sách Role
 export const getAllRoles = async (req, res, next) => {

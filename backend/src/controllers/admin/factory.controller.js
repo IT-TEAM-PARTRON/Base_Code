@@ -1,5 +1,5 @@
 import { ok, fail } from "../../middlewares/responseHandler.js";
-import FactoryModel from "../../models/factory.model.js";
+import FactoryModel from "../../models/admin/factory.model.js";
 
 // Lấy toàn bộ danh sách Factory
 export const getAllFactories = async (req, res, next) => {

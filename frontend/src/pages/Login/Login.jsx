@@ -22,7 +22,7 @@ export default function Login() {
   const { t } = useTranslation();
 
   useEffect(() => {
-
+document.title = "Login";
   }, []);
 
   useEffect(() => {

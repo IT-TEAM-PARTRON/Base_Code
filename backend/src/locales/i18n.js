@@ -155,7 +155,7 @@
 //   getAvailableLanguages,
 //   isLanguageSupported,
 // };
-import TranslationModel from "../models/translation.model.js";
+import TranslationModel from "../models/admin/translation.model.js";
 let translationCache = {};
 
 /**

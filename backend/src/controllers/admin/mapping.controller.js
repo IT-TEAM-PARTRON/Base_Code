@@ -1,5 +1,5 @@
 import { ok, fail } from "../../middlewares/responseHandler.js";
-import MappingModel from "../../models/mapping.model.js";
+import MappingModel from "../../models/admin/mapping.model.js";
 
 /**
  * Cập nhật quyền (Permissions) cho một Role

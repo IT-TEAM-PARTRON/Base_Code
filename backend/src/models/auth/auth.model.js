@@ -1,4 +1,4 @@
-import db from "../config/db.js";
+import db from "../../config/db.js";
 
 export default class AuthUser {
   constructor({ID, USERID, PASSWORD, FULLNAME, ROLEID, DESCRIPTION})  {

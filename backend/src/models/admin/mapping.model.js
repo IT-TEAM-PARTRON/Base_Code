@@ -1,4 +1,4 @@
-import db from '../config/db.js';
+import db from '../../config/db.js';
 
 export default class MappingModel {
   // Constructor để ánh xạ dữ liệu từ Database sang Object

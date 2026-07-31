@@ -24,6 +24,7 @@
 .sidebar {
   width: 250px;
   height: 100%;
+  margin-top: 3px;
   background: var(--sb-bg);
   color: var(--sb-text-muted);
   display: flex;
@@ -32,6 +33,7 @@
   overflow-x: hidden;
   overflow-y: auto;
   border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0 20px 0 0;
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 10;
   box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
@@ -152,7 +154,7 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: #FCD34D;
   transition: all 0.2s ease;
 }
 
@@ -350,6 +352,8 @@
     transform: translateX(0); /* Sidebar đang mở */
     position: fixed;
     height: 100vh;
+    margin-top: 0;
+    border-radius: 0;
     z-index: 1000;
   }
 

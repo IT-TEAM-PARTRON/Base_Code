@@ -1,4 +1,4 @@
-import AuthUser from "../../models/auth.model.js";
+import AuthUser from "../../models/auth/auth.model.js";
 import { comparePassword } from "../../utils/hash.js";
 import { createToken } from "../../utils/jwt.js";
 import { ok, fail } from "../../middlewares/responseHandler.js";
