@@ -28,7 +28,9 @@ export default function Sidebar({ isCollapsed, onToggle, activeGroup }) {
     return permissions.includes(normalizePermission(perm));
   };
 
-  const [openLevel3, setOpenLevel3] = useState("");
+  // Bấm mở 1 mục (header) chỉ mở thêm mục đó ra, không đóng các mục đang mở khác.
+  // Chỉ khi thực sự điều hướng sang route ở mục khác thì mục cũ mới bị đóng lại.
+  const [openSections, setOpenSections] = useState(() => new Set());
 
   useEffect(() => {
     if (activeGroup && activeGroup.items) {
@@ -36,13 +38,19 @@ export default function Sidebar({ isCollapsed, onToggle, activeGroup }) {
         sub.items && sub.items.some((level3) => location.pathname === level3.path)
       );
       if (activeSub) {
-        setOpenLevel3(activeSub.key);
+        setOpenSections(new Set([activeSub.key]));
       }
     }
   }, [location.pathname, activeGroup]);
+
   const toggleLevel3 = (e, menu) => {
     e.preventDefault();
-    setOpenLevel3(openLevel3 === menu ? "" : menu);
+    setOpenSections((prev) => {
+      const next = new Set(prev);
+      if (next.has(menu)) next.delete(menu);
+      else next.add(menu);
+      return next;
+    });
   };
 
   const isActive = (path) => location.pathname === path;
@@ -97,7 +105,7 @@ export default function Sidebar({ isCollapsed, onToggle, activeGroup }) {
           }
 
           // Render expandable menu (previously level 3, now essentially level 2 in sidebar)
-          const isLevel3Open = openLevel3 === sub.key;
+          const isLevel3Open = openSections.has(sub.key);
           return (
             <div key={sub.key} className={styles.menuSection}>
               <div

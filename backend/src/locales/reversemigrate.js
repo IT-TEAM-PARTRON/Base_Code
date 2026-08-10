@@ -77,9 +77,9 @@ const reverseMigrate = async () => {
       fs.writeFileSync(filePath, content, 'utf8');
     };
 
-    writeJsFile(path.join(backendPath, 'vi.js'), 'VI', viNested);
-    writeJsFile(path.join(backendPath, 'en.js'), 'EN', enNested);
-    writeJsFile(path.join(backendPath, 'kr.js'), 'KR', krNested);
+    writeJsFile(path.join(backendPath, 'vi.js'), 'vi', viNested);
+    writeJsFile(path.join(backendPath, 'en.js'), 'en', enNested);
+    writeJsFile(path.join(backendPath, 'kr.js'), 'kr', krNested);
 
     console.log("✅ Chúc mừng! Toàn bộ file Frontend và Backend đã được đồng bộ từ Database.");
     process.exit(0);

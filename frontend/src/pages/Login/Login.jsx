@@ -22,7 +22,7 @@ export default function Login() {
   const { t } = useTranslation();
 
   useEffect(() => {
-document.title = "Login";
+    document.title = "Login";
   }, []);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ document.title = "Login";
       const permissions = (data?.DESCRIPTION || "");
       const normalizePermission = (value = "") =>
         value.toString().trim().toUpperCase().replace(/[\s\-_]+/g, "");
-      
+
       const permissionsList = permissions
         .split(",")
         .map(normalizePermission)
@@ -66,7 +66,7 @@ document.title = "Login";
       } else {
         const findFirstPermittedPath = (items) => {
           for (const item of items) {
-            if (item.items) {
+            if (item.items && item.items.length > 0) {
               const path = findFirstPermittedPath(item.items);
               if (path) return path;
             } else {
@@ -77,8 +77,8 @@ document.title = "Login";
           }
           return null;
         };
-        
-        const foundPath =  findFirstPermittedPath(MENU_CONFIG);
+
+        const foundPath = findFirstPermittedPath(MENU_CONFIG);
         navigate(foundPath || "/home");
       }
     } catch (err) {

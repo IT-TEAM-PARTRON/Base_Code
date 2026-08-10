@@ -34,13 +34,13 @@ export default function MainLayout() {
   const hasSidebar = activeGroup && activeGroup.items && activeGroup.items.length > 0;
 
   return (
-    <div key={location.pathname} className={styles.layoutContainer}>
-      <Header 
-        onToggleSidebar={handleToggleSidebar} 
+    <div className={styles.layoutContainer}>
+      <Header
+        onToggleSidebar={handleToggleSidebar}
         onForceOpenSidebar={handleForceOpenSidebar}
-        hasSidebar={hasSidebar} 
+        hasSidebar={hasSidebar}
       />
-      
+
       <div className={styles.bodyContainer}>
         {hasSidebar && (
           <Sidebar
@@ -51,7 +51,7 @@ export default function MainLayout() {
         )}
 
         <div className={styles.mainContent}>
-          <div className={styles.contentArea}>
+          <div key={location.pathname} className={styles.contentArea}>
             <Outlet />
           </div>
         </div>
