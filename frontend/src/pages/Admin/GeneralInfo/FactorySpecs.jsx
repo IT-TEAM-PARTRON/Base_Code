@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import CustomSection from "../../../components/Section/CustomSection.jsx";
 import CustomInput from "../../../components/Input/CustomInput.jsx";
 import CustomButton from "../../../components/Button/CustomButton.jsx";
@@ -17,7 +17,6 @@ import {
   TbRefresh,
 } from "react-icons/tb";
 
-import { formatDateTime } from "../../../utils/dateTime.js";
 import {
   getAllFactories,
   createFactory,
@@ -53,19 +52,12 @@ export default function FactorySpecs() {
     idToDelete: null,
   });
 
-  useEffect(() => {
-    document.title = "Factory Specs";
-
-    fetchFactories();
+  const showAlert = useCallback((type, title, message) => {
+    setAlertModal({ isOpen: true, type, title, message });
   }, []);
 
-  const showAlert = (type, title, message) => {
-    setAlertModal({ isOpen: true, type, title, message });
-  };
-
-  const fetchFactories = async () => {
+  const fetchFactories = useCallback(async () => {
     try {
-      setIsLoading(true);
       const response = await getAllFactories();
       const { success, data, message } = response.data;
       if (!success) throw new Error(message);
@@ -80,7 +72,13 @@ export default function FactorySpecs() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [showAlert, t]);
+
+  useEffect(() => {
+    document.title = "Factory Specs";
+    const fetchTimer = setTimeout(fetchFactories, 0);
+    return () => clearTimeout(fetchTimer);
+  }, [fetchFactories]);
 
   const filteredFactories = useMemo(() => {
     if (!searchTerm) return factories;

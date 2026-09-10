@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 // 👇 THÊM TbEye, TbEyeOff vào đây
 import { TbX, TbDeviceFloppy, TbLock, TbEye, TbEyeOff } from "react-icons/tb";
@@ -29,18 +29,15 @@ export default function ChangePasswordModal({ isOpen, onClose, user }) {
   const [error, setError] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
-  // Reset form mỗi khi mở lại Modal
-  useEffect(() => {
-    if (isOpen) {
-      setFormData({ newPassword: "", confirmPassword: "" });
-      setError("");
-      // 👇 RESET LUÔN TRẠNG THÁI ẨN MẬT KHẨU
-      setShowNewPassword(false);
-      setShowConfirmPassword(false);
-    }
-  }, [isOpen]);
-
   if (!isOpen) return null;
+
+  const handleClose = () => {
+    setFormData({ newPassword: "", confirmPassword: "" });
+    setError("");
+    setShowNewPassword(false);
+    setShowConfirmPassword(false);
+    onClose();
+  };
 
   const showAlert = (type, title, message) => {
     setAlertModal({ isOpen: true, type, title, message });
@@ -80,9 +77,11 @@ export default function ChangePasswordModal({ isOpen, onClose, user }) {
         t("general_title.success"),
         t("modal_change_password.success"),
       );
-      setTimeout(() => onClose(), 1500); // Đóng modal sau khi hiện alert thành công
+      setTimeout(handleClose, 1500); // Đóng modal sau khi hiện alert thành công
     } catch (err) {
-      setError(err.response?.data?.message || "Lỗi khi đổi mật khẩu.");
+      setError(
+        err.response?.data?.message || t("modal_change_password.request_failed"),
+      );
     } finally {
       setIsSaving(false);
     }
@@ -99,7 +98,7 @@ export default function ChangePasswordModal({ isOpen, onClose, user }) {
           </div>
           <button
             className={styles.closeBtn}
-            onClick={onClose}
+            onClick={handleClose}
             disabled={isSaving}
           >
             <TbX size={20} />
@@ -110,11 +109,15 @@ export default function ChangePasswordModal({ isOpen, onClose, user }) {
           {/* Info Box - Giữ nguyên */}
           <div className={styles.infoBox}>
             <div className={styles.infoRow}>
-              <span className={styles.infoLabel}>User Name:</span>
+              <span className={styles.infoLabel}>
+                {t("components.user.user_name")}:
+              </span>
               <span className={styles.infoValue}>{user?.FULLNAME || "—"}</span>
             </div>
             <div className={styles.infoRow}>
-              <span className={styles.infoLabel}>Role:</span>
+              <span className={styles.infoLabel}>
+                {t("components.user.role")}:
+              </span>
               <span className={styles.infoValue}>{user?.ROLEID || "—"}</span>
             </div>
           </div>
@@ -177,7 +180,7 @@ export default function ChangePasswordModal({ isOpen, onClose, user }) {
         <div className={styles.footer}>
           <CustomButton
             type="danger"
-            onClick={onClose}
+            onClick={handleClose}
             disabled={isSaving}
             style={{
               textTransform: "none"

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, forwardRef } from "react";
+import { useTranslation } from "react-i18next";
 import styles from "./CustomCombobox.module.css";
 
 const CustomComboBox = forwardRef(
@@ -12,11 +13,12 @@ const CustomComboBox = forwardRef(
       disabled = false,
       width = "100%", // Đổi mặc định thành 100% để nó tự fill theo Grid
       labelWidth = "140px", // THÊM PROP NÀY (Giống hệt CustomInput)
-      placeholder = "",
+      placeholder,
       ...rest
     },
     forwardedRef,
   ) => {
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const containerRef = useRef(null);
 
@@ -74,7 +76,9 @@ const CustomComboBox = forwardRef(
                 selected ? styles.triggerTextSelected : styles.triggerText
               }
             >
-              {selected ? selected.label : placeholder}
+              {selected
+                ? selected.label
+                : placeholder || t("components.select.placeholder")}
             </span>
             <div className={styles.chevronWrap}>
               <span
@@ -89,7 +93,7 @@ const CustomComboBox = forwardRef(
           {open && (
             <div className={styles.dropdown}>
               {options.length === 0 ? (
-                <div className={styles.empty}>No data</div>
+                <div className={styles.empty}>{t("components.select.no_data")}</div>
               ) : (
                 options.map((o, idx) => (
                   <div

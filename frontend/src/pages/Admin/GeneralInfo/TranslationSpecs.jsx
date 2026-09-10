@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import * as XLSX from "xlsx-js-style";
 import CustomSection from "../../../components/Section/CustomSection.jsx";
 import CustomInput from "../../../components/Input/CustomInput.jsx";
@@ -44,27 +44,29 @@ export default function TranslationSpecs() {
     message: "",
   });
 
-  useEffect(() => {
-    document.title = "Translation Specs";
+  const showAlert = useCallback(
+    (type, title, message) =>
+      setAlertModal({ isOpen: true, type, title, message }),
+    [],
+  );
 
-    fetchData();
-  }, []);
-
-  const showAlert = (type, title, message) =>
-    setAlertModal({ isOpen: true, type, title, message });
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
-      setIsLoading(true);
       const response = await getAllTranslations();
       const { success, data: list } = response.data;
       if (success) setData(list);
-    } catch (error) {
+    } catch {
       setData([]);
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    document.title = "Translation Specs";
+    const fetchTimer = setTimeout(fetchData, 0);
+    return () => clearTimeout(fetchTimer);
+  }, [fetchData]);
 
   const handleUpdate = async () => {
     if (!formData.ID) return;
@@ -136,7 +138,7 @@ export default function TranslationSpecs() {
           res.data.message || t("admin_translation.update_success"),
         );
         fetchData();
-      } catch (err) {
+      } catch {
         showAlert(
           "error",
           t("admin_users.error"),

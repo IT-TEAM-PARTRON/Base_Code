@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Sidebar.module.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FaChevronRight, FaChevronLeft, FaTimes } from "react-icons/fa";
 import { useAuth } from "../pages/Login/AuthContext.jsx";
 import { useTranslation } from "react-i18next";
@@ -31,17 +31,6 @@ export default function Sidebar({ isCollapsed, onToggle, activeGroup }) {
   // Bấm mở 1 mục (header) chỉ mở thêm mục đó ra, không đóng các mục đang mở khác.
   // Chỉ khi thực sự điều hướng sang route ở mục khác thì mục cũ mới bị đóng lại.
   const [openSections, setOpenSections] = useState(() => new Set());
-
-  useEffect(() => {
-    if (activeGroup && activeGroup.items) {
-      const activeSub = activeGroup.items.find((sub) =>
-        sub.items && sub.items.some((level3) => location.pathname === level3.path)
-      );
-      if (activeSub) {
-        setOpenSections(new Set([activeSub.key]));
-      }
-    }
-  }, [location.pathname, activeGroup]);
 
   const toggleLevel3 = (e, menu) => {
     e.preventDefault();
@@ -105,7 +94,10 @@ export default function Sidebar({ isCollapsed, onToggle, activeGroup }) {
           }
 
           // Render expandable menu (previously level 3, now essentially level 2 in sidebar)
-          const isLevel3Open = openSections.has(sub.key);
+          const containsActivePath = sub.items.some(
+            (level3) => location.pathname === level3.path,
+          );
+          const isLevel3Open = openSections.has(sub.key) || containsActivePath;
           return (
             <div key={sub.key} className={styles.menuSection}>
               <div

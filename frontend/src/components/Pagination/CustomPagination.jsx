@@ -19,7 +19,7 @@ const CustomPagination = ({ page, pageSize, total, onPageChange, onPageSizeChang
   return (
     <div className={styles.paginationContainer}>
       <div className={styles.leftSection}>
-        <span>{t("pagination.rows_per_page") || "Rows per page"}:</span>
+        <span>{t("components.pagination.rows_per_page")}:</span>
         <select value={pageSize} onChange={handleSizeChange} className={styles.pageSizeSelect}>
           <option value={50}>50</option>
           <option value={100}>100</option>
@@ -29,21 +29,21 @@ const CustomPagination = ({ page, pageSize, total, onPageChange, onPageSizeChang
       </div>
 
       <div className={styles.centerSection}>
-        <button onClick={handleFirst} disabled={page === 1} className={styles.pageBtn} title="First Page">
+        <button onClick={handleFirst} disabled={page === 1} className={styles.pageBtn} title={t("components.pagination.first_page")}>
           <TbChevronsLeft size={16} />
         </button>
-        <button onClick={handlePrev} disabled={page === 1} className={styles.pageBtn} title="Previous Page">
+        <button onClick={handlePrev} disabled={page === 1} className={styles.pageBtn} title={t("components.pagination.previous_page")}>
           <TbChevronLeft size={16} />
         </button>
         
         <span className={styles.pageInfo}>
-          {t("pagination.page") || "Page"} <strong>{page}</strong> {t("pagination.of") || "of"} <strong>{totalPages}</strong>
+          {t("components.pagination.page")} <strong>{page}</strong> {t("components.pagination.of")} <strong>{totalPages}</strong>
         </span>
         
-        <button onClick={handleNext} disabled={page === totalPages} className={styles.pageBtn} title="Next Page">
+        <button onClick={handleNext} disabled={page === totalPages} className={styles.pageBtn} title={t("components.pagination.next_page")}>
           <TbChevronRight size={16} />
         </button>
-        <button onClick={handleLast} disabled={page === totalPages} className={styles.pageBtn} title="Last Page">
+        <button onClick={handleLast} disabled={page === totalPages} className={styles.pageBtn} title={t("components.pagination.last_page")}>
           <TbChevronsRight size={16} />
         </button>
       </div>

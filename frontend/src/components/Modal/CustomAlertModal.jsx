@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import styles from "./CustomAlertModal.module.css";
 import CustomButton from "../Button/CustomButton.jsx";
 import {
@@ -14,8 +15,9 @@ export default function CustomAlertModal({
   message,
   type = "success",
   onClose,
-  buttonText = "Đóng"
+  buttonText,
 }) {
+  const { t } = useTranslation();
 
   // ─── LOGIC CHẶN SỰ KIỆN PHÍM CỨNG (ENTER/ESC) ───
   useEffect(() => {
@@ -81,7 +83,11 @@ export default function CustomAlertModal({
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-        <button className={styles.closeBtnCorner} onClick={onClose}>
+        <button
+          className={styles.closeBtnCorner}
+          onClick={onClose}
+          aria-label={t("components.modal.close")}
+        >
           <TbX size={20} />
         </button>
 
@@ -98,7 +104,7 @@ export default function CustomAlertModal({
             className={styles.centerBtn}
             autoFocus
           >
-            {buttonText}
+            {buttonText || t("components.modal.close")}
           </CustomButton>
         </div>
       </div>

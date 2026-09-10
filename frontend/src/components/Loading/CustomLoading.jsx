@@ -1,12 +1,16 @@
-import React from 'react';
+import { useTranslation } from "react-i18next";
 import styles from './CustomLoading.module.css';
 
 const CustomLoading = ({
   show = false,
-  message = "Processing...",
+  message,
   percentage = 0 // Giá trị từ 0 đến 100
 }) => {
+  const { t } = useTranslation();
   if (!show) return null;
+
+  const displayMessage =
+    message === undefined ? t("components.loading.processing") : message;
 
   // Tính toán vòng tròn SVG
   const radius = 45;
@@ -37,7 +41,7 @@ const CustomLoading = ({
           </svg>
           <div className={styles.percentageText}>{Math.round(percentage)}%</div>
         </div>
-        {message && <p className={styles.text}>{message}</p>}
+        {displayMessage && <p className={styles.text}>{displayMessage}</p>}
       </div>
     </div>
   );

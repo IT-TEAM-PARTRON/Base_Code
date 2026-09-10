@@ -10,10 +10,14 @@ import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "../../components/LanguageSwitcher/LanguageSwitcher.jsx";
 import { MENU_CONFIG } from "../../layouts/menuConfig.js";
 export default function Login() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(
+    () => localStorage.getItem("rememberedESL") || "",
+  );
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState(
+    () => Boolean(localStorage.getItem("rememberedESL")),
+  );
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -23,14 +27,6 @@ export default function Login() {
 
   useEffect(() => {
     document.title = "Login";
-  }, []);
-
-  useEffect(() => {
-    const saveEmail = localStorage.getItem("rememberedESL");
-    if (saveEmail) {
-      setEmail(saveEmail);
-      setRememberMe(true);
-    }
   }, []);
 
   const handleLogin = async (e) => {

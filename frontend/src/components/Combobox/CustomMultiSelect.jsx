@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, forwardRef } from "react";
+import { useTranslation } from "react-i18next";
 import styles from "./CustomMultiSelect.module.css";
 
 const CustomMultiSelect = forwardRef(
@@ -10,12 +11,14 @@ const CustomMultiSelect = forwardRef(
       onChange,
       options = [],
       disabled = false,
+      placeholder,
       width = "100%", 
       labelWidth = "140px", 
       ...rest
     },
     forwardedRef,
   ) => {
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const containerRef = useRef(null);
 
@@ -85,7 +88,9 @@ const CustomMultiSelect = forwardRef(
               }
               title={selectedLabels} // Show full list on hover if truncated
             >
-              {selectedLabels.length > 0 ? selectedLabels : placeholder}
+              {selectedLabels.length > 0
+                ? selectedLabels
+                : placeholder || t("components.select.placeholder")}
             </span>
             <div className={styles.chevronWrap}>
               <span
@@ -100,9 +105,9 @@ const CustomMultiSelect = forwardRef(
           {open && (
             <div className={styles.dropdown}>
               {options.length === 0 ? (
-                <div className={styles.empty}>No data</div>
+                <div className={styles.empty}>{t("components.select.no_data")}</div>
               ) : (
-                options.map((o, idx) => {
+                options.map((o) => {
                   const isSelected = value.includes(o.value);
                   return (
                     <div

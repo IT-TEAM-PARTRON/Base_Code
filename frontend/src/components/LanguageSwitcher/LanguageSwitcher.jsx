@@ -5,7 +5,7 @@ import styles from "./LanguageSwitcher.module.css";
 import { LANGUAGES } from "./language.js";
 
 export default function LanguageSwitcher() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const ref = useRef();
 
@@ -34,7 +34,11 @@ export default function LanguageSwitcher() {
   return (
     <div className={styles.container} ref={ref}>
       {/* BUTTON */}
-      <div className={styles.selected} onClick={() => setOpen(!open)}>
+      <div
+        className={styles.selected}
+        onClick={() => setOpen(!open)}
+        title={t("components.language.select_language")}
+      >
         <span>{current.code.toUpperCase()}</span>
         <span className={`${styles.arrow} ${open ? styles.rotate : ""}`}>
           ▼
@@ -53,7 +57,7 @@ export default function LanguageSwitcher() {
           >
 
             {/* 👉 LABEL */}
-            <span className={styles.label}>{lang.label}</span>
+            <span className={styles.label}>{t(lang.labelKey)}</span>
 
             {lang.code === current.code && <FaCheck className={styles.check} />}
           </div>

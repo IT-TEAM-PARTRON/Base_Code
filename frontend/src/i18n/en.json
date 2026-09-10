@@ -32,6 +32,40 @@
       "next": "Next"
     }
   },
+  "components": {
+    "select": {
+      "placeholder": "-- Select --",
+      "no_data": "No data",
+      "no_data_found": "No data found"
+    },
+    "loading": {
+      "processing": "Processing..."
+    },
+    "modal": {
+      "close": "Close",
+      "confirm_title": "Confirm",
+      "confirm_message": "Are you sure you want to perform this action?",
+      "confirm": "Confirm",
+      "delete": "Delete",
+      "cancel": "Cancel"
+    },
+    "pagination": {
+      "rows_per_page": "Rows per page",
+      "page": "Page",
+      "of": "of",
+      "first_page": "First page",
+      "previous_page": "Previous page",
+      "next_page": "Next page",
+      "last_page": "Last page"
+    },
+    "user": {
+      "user_name": "User name",
+      "role": "Role"
+    },
+    "language": {
+      "select_language": "Select language"
+    }
+  },
   "general_error": {
     "title": "Error",
     "get_users_failed": "Failed to load user list",
@@ -72,6 +106,7 @@
     "error1": "Please fill in both new password and confirm password.",
     "error2": "Confirm password does not match!",
     "error3": "New password must be at least 4 characters long.",
+    "request_failed": "Unable to change the password. Please try again.",
     "success": "Password changed successfully!"
   },
   "admin_users": {

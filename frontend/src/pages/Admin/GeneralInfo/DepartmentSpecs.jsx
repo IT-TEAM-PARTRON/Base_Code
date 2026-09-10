@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import CustomSection from "../../../components/Section/CustomSection.jsx";
 import CustomInput from "../../../components/Input/CustomInput.jsx";
 import CustomButton from "../../../components/Button/CustomButton.jsx";
@@ -18,7 +18,6 @@ import {
   TbRefresh,
 } from "react-icons/tb";
 
-import { formatDateTime } from "../../../utils/dateTime.js";
 import {
   getAllDepartments,
   createDepartment,
@@ -56,18 +55,11 @@ export default function DepartmentSpecs() {
     idToDelete: null,
   });
 
-  useEffect(() => {
-    document.title = "Department Specs";
-
-    fetchDepartments();
-    fetchFactories();
+  const showAlert = useCallback((type, title, message) => {
+    setAlertModal({ isOpen: true, type, title, message });
   }, []);
 
-  const showAlert = (type, title, message) => {
-    setAlertModal({ isOpen: true, type, title, message });
-  };
-
-  const fetchFactories = async () => {
+  const fetchFactories = useCallback(async () => {
     try {
       const response = await getAllFactories();
       const { success, data } = response.data;
@@ -82,11 +74,10 @@ export default function DepartmentSpecs() {
     } catch (error) {
       console.error("Fetch Factories Error:", error);
     }
-  };
+  }, []);
 
-  const fetchDepartments = async () => {
+  const fetchDepartments = useCallback(async () => {
     try {
-      setIsLoading(true);
       const response = await getAllDepartments();
       const { success, data, message } = response.data;
       if (!success) throw new Error(message);
@@ -101,7 +92,16 @@ export default function DepartmentSpecs() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [showAlert, t]);
+
+  useEffect(() => {
+    document.title = "Department Specs";
+    const fetchTimer = setTimeout(() => {
+      fetchDepartments();
+      fetchFactories();
+    }, 0);
+    return () => clearTimeout(fetchTimer);
+  }, [fetchDepartments, fetchFactories]);
 
   const filteredDepartments = useMemo(() => {
     if (!searchTerm) return departments;

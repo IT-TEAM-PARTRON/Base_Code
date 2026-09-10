@@ -77,10 +77,10 @@ function CustomTable({
 
   useEffect(() => {
     if (isPaginationEnabled && !isServerPaginated) {
-      setInternalPage(1);
+      const resetTimer = setTimeout(() => setInternalPage(1), 0);
+      return () => clearTimeout(resetTimer);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [data, isPaginationEnabled, isServerPaginated]);
 
   const totalRecords = isServerPaginated
     ? (paginationConfig.total ?? sortedData.length)
@@ -278,14 +278,14 @@ function CustomTable({
       </table>
 
       {pagedData.length === 0 && (
-        <div className={styles.emptyState}>{emptyText || t("table.empty", "Không có dữ liệu")}</div>
+        <div className={styles.emptyState}>{emptyText || t("table.empty")}</div>
       )}
       </div>
 
       {isPaginationEnabled && (
         <div className={`${styles.paginationBar} ${legacy ? styles.paginationBarLegacy : ""}`}>
           <span className={styles.paginationInfo}>
-            {t("table.showing", "Showing")} {startRecord} - {endRecord} {t("table.of", "of")} {totalRecords}
+            {t("table.showing")} {startRecord} - {endRecord} {t("table.of")} {totalRecords}
           </span>
           <div className={styles.paginationControls}>
             <button
@@ -294,7 +294,7 @@ function CustomTable({
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage <= 1}
             >
-              {t("table.pagination.previous", "Previous")}
+              {t("table.pagination.previous")}
             </button>
             <span className={styles.paginationPage}>{currentPage} / {totalPages}</span>
             <button
@@ -303,7 +303,7 @@ function CustomTable({
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage >= totalPages}
             >
-              {t("table.pagination.next", "Next")}
+              {t("table.pagination.next")}
             </button>
           </div>
         </div>

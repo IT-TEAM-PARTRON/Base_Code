@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, forwardRef, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import styles from "./CustomTableCbb.module.css";
 import { TbChevronDown, TbX } from "react-icons/tb";
 
@@ -18,15 +19,22 @@ const CustomTableCbb = forwardRef(
       labelWidth = "120px",
       dropdownWidth = "400px", // Độ rộng của bảng khi mở ra
       maxHeight = "223px", // Chiều cao tối đa của bảng
-      placeholder = "-- Select --",
+      placeholder,
       ...rest
     },
     forwardedRef,
   ) => {
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const containerRef = useRef(null);
     const inputRef = useRef(null);
+
+    const setInputRef = (node) => {
+      inputRef.current = node;
+      if (typeof forwardedRef === "function") forwardedRef(node);
+      else if (forwardedRef) forwardedRef.current = node;
+    };
 
     // Tìm đối tượng đang chọn
     const selected = useMemo(
@@ -102,10 +110,14 @@ const CustomTableCbb = forwardRef(
 
             {/* Ô INPUT TÌM KIẾM TÍCH HỢP */}
             <input
-              ref={inputRef}
+              ref={setInputRef}
               type="text"
               className={styles.mainInput}
-              placeholder={selected ? selected[labelKey] : placeholder}
+              placeholder={
+                selected
+                  ? selected[labelKey]
+                  : placeholder || t("components.select.placeholder")
+              }
               value={searchTerm}
               onChange={(e) => {
                 setSearchTerm(e.target.value);
@@ -113,6 +125,7 @@ const CustomTableCbb = forwardRef(
               }}
               disabled={disabled}
               readOnly={!open && !!selected} // Chỉ cho gõ khi đang mở hoặc chưa chọn gì
+              {...rest}
             />
 
             <div className={styles.rightIcons}>
@@ -151,7 +164,7 @@ const CustomTableCbb = forwardRef(
                     {filteredOptions.length === 0 ? (
                       <tr>
                         <td colSpan={columns.length} className={styles.empty}>
-                          No data found
+                          {t("components.select.no_data_found")}
                         </td>
                       </tr>
                     ) : (

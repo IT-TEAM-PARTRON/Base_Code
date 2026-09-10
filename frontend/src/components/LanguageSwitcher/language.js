@@ -2,14 +2,14 @@
 export const LANGUAGES = [
   {
     code: "VI",
-    label: "Tiếng Việt",
+    labelKey: "language.vi",
   },
   {
     code: "EN",
-    label: "English",
+    labelKey: "language.en",
   },
   {
     code: "KR",
-    label: "한국어",
+    labelKey: "language.ko",
   },
 ];

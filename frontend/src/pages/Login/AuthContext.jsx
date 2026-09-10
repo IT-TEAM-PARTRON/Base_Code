@@ -79,8 +79,8 @@ export function AuthProvider({ children }) {
       const now = Date.now();
 
       if (now > expireTime) {
-        logout();
-        return;
+        timerRef.current = setTimeout(logout, 0);
+        return () => clearTimeout(timerRef.current);
       }
 
       // Hẹn giờ auto logout khi đến hạn

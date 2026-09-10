@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import CustomSection from "../../../components/Section/CustomSection.jsx";
 import CustomInput from "../../../components/Input/CustomInput.jsx";
 import CustomButton from "../../../components/Button/CustomButton.jsx";
@@ -17,7 +17,6 @@ import {
   TbRefresh,
 } from "react-icons/tb";
 
-import { formatDateTime } from "../../../utils/dateTime.js";
 import {
   getRoles,
   createRole,
@@ -55,19 +54,12 @@ export default function Role() {
     idToDelete: null,
   });
 
-  useEffect(() => {
-    document.title = "Role Management";
-
-    fetchRoles();
+  const showAlert = useCallback((type, title, message) => {
+    setAlertModal({ isOpen: true, type, title, message });
   }, []);
 
-  const showAlert = (type, title, message) => {
-    setAlertModal({ isOpen: true, type, title, message });
-  };
-
-  const fetchRoles = async () => {
+  const fetchRoles = useCallback(async () => {
     try {
-      setIsLoading(true);
       const response = await getRoles();
       const { success, data, message } = response.data;
       if (!success) throw new Error(message);
@@ -82,7 +74,13 @@ export default function Role() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [showAlert, t]);
+
+  useEffect(() => {
+    document.title = "Role Management";
+    const fetchTimer = setTimeout(fetchRoles, 0);
+    return () => clearTimeout(fetchTimer);
+  }, [fetchRoles]);
 
   const filteredRoles = useMemo(() => {
     if (!searchTerm) return roles;

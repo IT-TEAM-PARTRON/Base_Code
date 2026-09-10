@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import CustomSection from "../../../components/Section/CustomSection.jsx";
 import CustomInput from "../../../components/Input/CustomInput.jsx";
 import CustomButton from "../../../components/Button/CustomButton.jsx";
@@ -26,8 +26,6 @@ import {
   updateUser,
   deleteUser,
   getRoles,
-  getAllFactories,
-  getDepartmentsByFactory,
 } from "../../../api/admin/generalApi.js";
 import { useTranslation } from "react-i18next";
 
@@ -47,8 +45,6 @@ export default function UserSpecs() {
 
   const [users, setUsers] = useState([]);
   const [roleOptions, setRoleOptions] = useState([]);
-  const [factoryOptions, setFactoryOptions] = useState([]);
-  const [departmentOptions, setDepartmentOptions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -73,28 +69,11 @@ export default function UserSpecs() {
     { value: "Inactive", label: "Inactive" },
   ];
 
-  useEffect(() => {
-    document.title = "User Specs";
-
-    fetchUsers();
-    fetchRoles();
-    fetchFactories();
+  const showAlert = useCallback((type, title, message) => {
+    setAlertModal({ isOpen: true, type, title, message });
   }, []);
 
-  // Khi FACTORYID thay đổi → load lại danh sách Department
-  useEffect(() => {
-    if (formData.FACTORYID) {
-      fetchDepartments(formData.FACTORYID);
-    } else {
-      setDepartmentOptions([]);
-    }
-  }, [formData.FACTORYID]);
-
-  const showAlert = (type, title, message) => {
-    setAlertModal({ isOpen: true, type, title, message });
-  };
-
-  const fetchRoles = async () => {
+  const fetchRoles = useCallback(async () => {
     try {
       const response = await getRoles();
       const { success, data } = response.data;
@@ -108,45 +87,10 @@ export default function UserSpecs() {
     } catch (error) {
       console.error("Fetch Roles Error:", error);
     }
-  };
+  }, []);
 
-  const fetchFactories = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
-      const response = await getAllFactories();
-      const { success, data } = response.data;
-      if (success && Array.isArray(data)) {
-        setFactoryOptions(
-          data.map((item) => ({
-            value: item.FACTORYID,
-            label: item.FACTORYID,
-          })),
-        );
-      }
-    } catch (error) {
-      console.error("Fetch Factories Error:", error);
-    }
-  };
-
-  const fetchDepartments = async (factoryId) => {
-    try {
-      const response = await getDepartmentsByFactory(factoryId);
-      const { success, data } = response.data;
-      if (success && Array.isArray(data)) {
-        setDepartmentOptions(
-          data.map((item) => ({
-            value: item.DEPARTMENTID,
-            label: item.DEPARTMENTID,
-          })),
-        );
-      }
-    } catch (error) {
-      console.error("Fetch Departments Error:", error);
-    }
-  };
-
-  const fetchUsers = async () => {
-    try {
-      setIsLoading(true);
       const response = await getAllUsers();
       const { success, data, message } = response.data;
       if (!success) throw new Error(message);
@@ -163,7 +107,16 @@ export default function UserSpecs() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [showAlert, t]);
+
+  useEffect(() => {
+    document.title = "User Specs";
+    const fetchTimer = setTimeout(() => {
+      fetchUsers();
+      fetchRoles();
+    }, 0);
+    return () => clearTimeout(fetchTimer);
+  }, [fetchRoles, fetchUsers]);
 
   const filteredUsers = useMemo(() => {
     if (!searchTerm) return users;

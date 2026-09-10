@@ -32,6 +32,40 @@
       "next": "Sau"
     }
   },
+  "components": {
+    "select": {
+      "placeholder": "-- Chọn --",
+      "no_data": "Không có dữ liệu",
+      "no_data_found": "Không tìm thấy dữ liệu"
+    },
+    "loading": {
+      "processing": "Đang xử lý..."
+    },
+    "modal": {
+      "close": "Đóng",
+      "confirm_title": "Xác nhận",
+      "confirm_message": "Bạn có chắc chắn muốn thực hiện hành động này?",
+      "confirm": "Xác nhận",
+      "delete": "Xóa",
+      "cancel": "Hủy"
+    },
+    "pagination": {
+      "rows_per_page": "Số dòng mỗi trang",
+      "page": "Trang",
+      "of": "trên",
+      "first_page": "Trang đầu",
+      "previous_page": "Trang trước",
+      "next_page": "Trang sau",
+      "last_page": "Trang cuối"
+    },
+    "user": {
+      "user_name": "Tên người dùng",
+      "role": "Vai trò"
+    },
+    "language": {
+      "select_language": "Chọn ngôn ngữ"
+    }
+  },
   "general_error": {
     "title": "Lỗi",
     "get_users_failed": "Tải danh sách người dùng thất bại.",
@@ -72,6 +106,7 @@
     "error1": "Vui lòng nhập cả mật khẩu mới và xác nhận mật khẩu.",
     "error2": "Mật khẩu xác nhận không khớp!",
     "error3": "Mật khẩu mới phải có ít nhất 4 ký tự.",
+    "request_failed": "Không thể đổi mật khẩu. Vui lòng thử lại.",
     "success": "Đổi mật khẩu thành công!"
   },
   "admin_users": {

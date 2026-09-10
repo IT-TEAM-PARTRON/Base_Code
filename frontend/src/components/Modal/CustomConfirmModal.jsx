@@ -1,18 +1,26 @@
 import styles from "./CustomConfirmModal.module.css";
 import CustomButton from "../Button/CustomButton.jsx";
 import { TbAlertTriangle, TbX, TbCheck } from "react-icons/tb";
+import { useTranslation } from "react-i18next";
 
 export default function CustomConfirmModal({
   isOpen,
-  title = "Xác nhận",
-  message = "Bạn có chắc chắn muốn thực hiện hành động này?",
+  title,
+  message,
   onConfirm,
   onCancel,
-  confirmText = "Xóa",
-  cancelText = "Hủy",
+  confirmText,
+  cancelText,
   isDanger = true, // Mặc định là nút đỏ (Xóa), nếu false sẽ là nút xanh (Đồng ý)
 }) {
+  const { t } = useTranslation();
   if (!isOpen) return null;
+
+  const displayTitle = title || t("components.modal.confirm_title");
+  const displayMessage = message || t("components.modal.confirm_message");
+  const displayConfirmText =
+    confirmText || t(isDanger ? "components.modal.delete" : "components.modal.confirm");
+  const displayCancelText = cancelText || t("components.modal.cancel");
 
   return (
     <div className={styles.overlay} onClick={onCancel}>
@@ -24,30 +32,33 @@ export default function CustomConfirmModal({
               size={24}
               className={isDanger ? styles.iconDanger : styles.iconWarning}
             />
-            <h3>{title}</h3>
+            <h3>{displayTitle}</h3>
           </div>
-          <button className={styles.closeBtn} onClick={onCancel}>
+          <button
+            className={styles.closeBtn}
+            onClick={onCancel}
+            aria-label={t("components.modal.close")}
+          >
             <TbX size={20} />
           </button>
         </div>
 
         {/* Body */}
         <div className={styles.body}>
-          <p>{message}</p>
+          <p>{displayMessage}</p>
         </div>
 
         {/* Footer */}
         <div className={styles.footer}>
           <CustomButton type="default" onClick={onCancel} style={{ textTransform: "none" }}>
-            {cancelText}
+            {displayCancelText}
           </CustomButton>
           <CustomButton
             type={isDanger ? "danger" : "primary"}
-            icon={isDanger ? <TbAlertTriangle size={18} /> : <TbCheck size={18} />}
             onClick={onConfirm}
             style={{ textTransform: "none" }}
           >
-            {confirmText}
+            {displayConfirmText}
           </CustomButton>
         </div>
       </div>

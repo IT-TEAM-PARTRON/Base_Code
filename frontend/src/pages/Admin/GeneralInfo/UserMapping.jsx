@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import CustomSection from "../../../components/Section/CustomSection.jsx";
 import CustomAlertModal from "../../../components/Modal/CustomAlertModal.jsx";
 import CustomTable from "../../../components/Table/CustomTable.jsx";
@@ -90,14 +90,13 @@ export default function UserMapping() {
   const [alertModal, setAlertModal] = useState({ isOpen: false, type: "success", title: "", message: "" });
 
   const isDisabledPermission = (key) => key === "ADMIN_USER" && selectedRole?.ROLEID === "ADMIN";
-  const showAlert = (type, title, message) => setAlertModal({ isOpen: true, type, title, message });
+  const showAlert = useCallback(
+    (type, title, message) =>
+      setAlertModal({ isOpen: true, type, title, message }),
+    [],
+  );
 
-  useEffect(() => {
-    document.title = "User Mapping";
-    fetchRoles();
-  }, []);
-
-  const fetchRoles = async () => {
+  const fetchRoles = useCallback(async () => {
     try {
       setIsLoading(true);
       const response = await getRoles();
@@ -109,7 +108,12 @@ export default function UserMapping() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [showAlert, t]);
+
+  useEffect(() => {
+    document.title = "User Mapping";
+    fetchRoles();
+  }, [fetchRoles]);
 
   const filteredRoles = useMemo(() => {
     if (!searchTerm) return roles;
@@ -142,11 +146,6 @@ export default function UserMapping() {
 
     setPerms(parsedPerms);
     setSavedPerms(parsedPerms);
-  };
-
-  const handleTogglePerm = (key) => {
-    if (isDisabledPermission(key)) return;
-    setPerms((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
   const handleSave = async () => {
