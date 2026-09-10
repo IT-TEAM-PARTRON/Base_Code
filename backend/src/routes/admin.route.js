@@ -1,6 +1,10 @@
 import express from "express";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 import {
+  requireAnyPermission,
+  requirePermission,
+} from "../middlewares/authorization.middleware.js";
+import {
   createUser,
   deleteUser,
   getAllUsers,
@@ -32,38 +36,83 @@ import {
 const router = express.Router();
 
 //================ User =====================
-router.get("/admin/users", authMiddleware, getAllUsers);
-router.post("/admin/users", authMiddleware, createUser);
-router.put("/admin/users/:userId", authMiddleware, updateUser);
-router.delete("/admin/users/:userId", authMiddleware, deleteUser);
-router.post("/admin/users/:userId/change-password", authMiddleware, changeUserPassword);
+router.get(
+  "/admin/users",
+  authMiddleware,
+  requirePermission("ADMIN_USER"),
+  getAllUsers,
+);
+router.post(
+  "/admin/users",
+  authMiddleware,
+  requirePermission("ADMIN_USER"),
+  createUser,
+);
+router.put(
+  "/admin/users/:userId",
+  authMiddleware,
+  requirePermission("ADMIN_USER"),
+  updateUser,
+);
+router.delete(
+  "/admin/users/:userId",
+  authMiddleware,
+  requirePermission("ADMIN_USER"),
+  deleteUser,
+);
+router.post(
+  "/admin/users/:userId/change-password",
+  authMiddleware,
+  requirePermission("ADMIN_USER"),
+  changeUserPassword,
+);
 
 //================ Role =====================
-router.get("/admin/roles", authMiddleware, getAllRoles);
-router.post("/admin/roles", authMiddleware, createRole);
-router.put("/admin/roles/:id", authMiddleware, updateRole);
-router.delete("/admin/roles/:id", authMiddleware, deleteRole);
+router.get(
+  "/admin/roles",
+  authMiddleware,
+  requireAnyPermission("ADMIN_ROLE", "ADMIN_USER", "ADMIN_MAPPING"),
+  getAllRoles,
+);
+router.post("/admin/roles", authMiddleware, requirePermission("ADMIN_ROLE"), createRole);
+router.put("/admin/roles/:id", authMiddleware, requirePermission("ADMIN_ROLE"), updateRole);
+router.delete("/admin/roles/:id", authMiddleware, requirePermission("ADMIN_ROLE"), deleteRole);
 
 //================ Mapping =====================
-router.put("/admin/mapping/:id", authMiddleware, updateRolePermission);
+router.put("/admin/mapping/:id", authMiddleware, requirePermission("ADMIN_MAPPING"), updateRolePermission);
 
 //================ Translation =====================
-router.get("/admin/translations", authMiddleware, getAllTranslations);
-router.put("/admin/translations/:id", authMiddleware, updateTranslation);
-router.post("/admin/translations/import", authMiddleware, importTranslations);
+router.get("/admin/translations", authMiddleware, requirePermission("ADMIN_TRANSLATION"), getAllTranslations);
+router.put("/admin/translations/:id", authMiddleware, requirePermission("ADMIN_TRANSLATION"), updateTranslation);
+router.post("/admin/translations/import", authMiddleware, requirePermission("ADMIN_TRANSLATION"), importTranslations);
 
 //================ Factory =====================
-router.get("/admin/factories", authMiddleware, getAllFactories);
-router.post("/admin/factories", authMiddleware, createFactory);
-router.put("/admin/factories/:id", authMiddleware, updateFactory);
-router.delete("/admin/factories/:id", authMiddleware, deleteFactory);
+router.get(
+  "/admin/factories",
+  authMiddleware,
+  requireAnyPermission("ADMIN_FACTORY", "ADMIN_DEPARTMENT", "ADMIN_USER"),
+  getAllFactories,
+);
+router.post("/admin/factories", authMiddleware, requirePermission("ADMIN_FACTORY"), createFactory);
+router.put("/admin/factories/:id", authMiddleware, requirePermission("ADMIN_FACTORY"), updateFactory);
+router.delete("/admin/factories/:id", authMiddleware, requirePermission("ADMIN_FACTORY"), deleteFactory);
 
 //================ Department =====================
-router.get("/admin/departments",  getAllDepartments);
-router.get("/admin/departments/factory/:factoryId", authMiddleware, getDepartmentsByFactory);
-router.post("/admin/departments", authMiddleware, createDepartment);
-router.put("/admin/departments/:id", authMiddleware, updateDepartment);
-router.delete("/admin/departments/:id", authMiddleware, deleteDepartment);
+router.get(
+  "/admin/departments",
+  authMiddleware,
+  requireAnyPermission("ADMIN_DEPARTMENT", "ADMIN_USER"),
+  getAllDepartments,
+);
+router.get(
+  "/admin/departments/factory/:factoryId",
+  authMiddleware,
+  requireAnyPermission("ADMIN_DEPARTMENT", "ADMIN_USER"),
+  getDepartmentsByFactory,
+);
+router.post("/admin/departments", authMiddleware, requirePermission("ADMIN_DEPARTMENT"), createDepartment);
+router.put("/admin/departments/:id", authMiddleware, requirePermission("ADMIN_DEPARTMENT"), updateDepartment);
+router.delete("/admin/departments/:id", authMiddleware, requirePermission("ADMIN_DEPARTMENT"), deleteDepartment);
 
 
 // Data Spec routes đã được xóa

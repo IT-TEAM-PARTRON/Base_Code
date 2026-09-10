@@ -72,6 +72,11 @@
     "connecttion_error": "Connection error. Please check your network and try again.",
     "unknown_error": "An unknown error occurred. Please try again later."
   },
+  "access_denied": {
+    "title": "Access denied",
+    "message": "You do not have permission to view this page. Please contact an administrator if you need access.",
+    "go_home": "Back to home"
+  },
   "general_title": {
     "error": "Error",
     "warning": "Warning",

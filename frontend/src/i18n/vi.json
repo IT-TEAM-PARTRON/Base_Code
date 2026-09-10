@@ -72,6 +72,11 @@
     "connecttion_error": "Lỗi kết nối. Vui lòng kiểm tra mạng và thử lại.",
     "unknown_error": "Lỗi không xác định. Vui lòng thử lại sau."
   },
+  "access_denied": {
+    "title": "Không có quyền truy cập",
+    "message": "Bạn không có quyền xem trang này. Vui lòng liên hệ quản trị viên nếu bạn cần được cấp quyền.",
+    "go_home": "Quay về trang chủ"
+  },
   "general_title": {
     "error": "Lỗi",
     "warning": "Cảnh báo",

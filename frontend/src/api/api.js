@@ -51,11 +51,16 @@ api.interceptors.response.use(
   },
   (error) => {
     if (error.response) {
-      if (error.response.status === 401 || error.response.status === 403) {
+      const { status, data } = error.response;
+      const isAuthenticationError =
+        status === 401 ||
+        (status === 403 && data?.error_code !== "ACCESS_DENIED");
+
+      if (isAuthenticationError) {
         window.dispatchEvent(new Event("forceLogout"));
       }
       
-      if (error.response.status >= 500) {
+      if (status >= 500) {
         window.dispatchEvent(
           new CustomEvent("globalError", {
             detail: error.response.data?.message || "Lỗi hệ thống máy chủ (5xx)",
