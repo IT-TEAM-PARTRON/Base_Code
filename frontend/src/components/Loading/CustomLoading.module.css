@@ -31,6 +31,10 @@
   transform: rotate(-90deg); /* Xoay để vòng tròn bắt đầu từ đỉnh */
 }
 
+.indeterminateSvg {
+  animation: loadingSpin 0.9s linear infinite;
+}
+
 .circleBg {
   fill: none;
   stroke: #e2e8f0;
@@ -55,4 +59,10 @@
   font-weight: 600;
   color: #64748b;
   margin-top: 5px;
+}
+
+@keyframes loadingSpin {
+  to {
+    transform: rotate(270deg);
+  }
 }

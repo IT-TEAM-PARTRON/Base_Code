@@ -1,18 +1,26 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { syncTimeWithServer } from "./utils/dateTime.js";
-import Login from "./pages/Login/Login.jsx";
-import MainLayout from "./layouts/MainLayout.jsx";
 import PrivateRoute from "./pages/Login/PrivateRoute.jsx";
 import PermissionRoute from "./pages/Login/PermissionRoute.jsx";
-import UserSpecs from "./pages/Admin/GeneralInfo/UserSpecs.jsx";
-import Role from "./pages/Admin/GeneralInfo/Role.jsx";
-import Mapping from "./pages/Admin/GeneralInfo/UserMapping.jsx";
-import TranslationSpecs from "./pages/Admin/GeneralInfo/TranslationSpecs.jsx";
-import FactorySpecs from "./pages/Admin/GeneralInfo/FactorySpecs.jsx";
-import DepartmentSpecs from "./pages/Admin/GeneralInfo/DepartmentSpecs.jsx";
-import Home from "./pages/Home/Home.jsx";
-import AccessDenied from "./pages/Error/AccessDenied.jsx";
+import CustomLoading from "./components/Loading/CustomLoading.jsx";
+
+const Login = lazy(() => import("./pages/Login/Login.jsx"));
+const MainLayout = lazy(() => import("./layouts/MainLayout.jsx"));
+const UserSpecs = lazy(() => import("./pages/Admin/GeneralInfo/UserSpecs.jsx"));
+const Role = lazy(() => import("./pages/Admin/GeneralInfo/Role.jsx"));
+const Mapping = lazy(() => import("./pages/Admin/GeneralInfo/UserMapping.jsx"));
+const TranslationSpecs = lazy(
+  () => import("./pages/Admin/GeneralInfo/TranslationSpecs.jsx"),
+);
+const FactorySpecs = lazy(
+  () => import("./pages/Admin/GeneralInfo/FactorySpecs.jsx"),
+);
+const DepartmentSpecs = lazy(
+  () => import("./pages/Admin/GeneralInfo/DepartmentSpecs.jsx"),
+);
+const Home = lazy(() => import("./pages/Home/Home.jsx"));
+const AccessDenied = lazy(() => import("./pages/Error/AccessDenied.jsx"));
 
 function App() {
   useEffect(() => {
@@ -26,72 +34,80 @@ function App() {
   }, []);
 
   return (
-    <Routes>
-      {/* default → chuyển sang login */}
-      <Route path="/" element={<Navigate to="/login" />} />
+    <Suspense fallback={<CustomLoading show />}>
+      <Routes>
+        {/* default → chuyển sang login */}
+        <Route path="/" element={<Navigate to="/login" />} />
 
-      {/* login */}
-      <Route path="/login" element={<Login />} />
+        {/* login */}
+        <Route path="/login" element={<Login />} />
 
-      {/* Đường dẫn Routes có bảo vệ */}
-      <Route element={<PrivateRoute><MainLayout /></PrivateRoute>}>
-        {/* Trang chủ Dashboard */}
-        <Route path="/home" element={<Home />} />
-        <Route path="/403" element={<AccessDenied />} />
+        {/* Đường dẫn Routes có bảo vệ */}
+        <Route
+          element={
+            <PrivateRoute>
+              <MainLayout />
+            </PrivateRoute>
+          }
+        >
+          {/* Trang chủ Dashboard */}
+          <Route path="/home" element={<Home />} />
+          <Route path="/403" element={<AccessDenied />} />
 
-        {/* Admin - Quản lý người dùng, quyền hạn */}
-        <Route
-          path="/admin/users"
-          element={
-            <PermissionRoute permission="ADMIN_USER">
-              <UserSpecs />
-            </PermissionRoute>
-          }
-        />
-        <Route
-          path="/admin/roles"
-          element={
-            <PermissionRoute permission="ADMIN_ROLE">
-              <Role />
-            </PermissionRoute>
-          }
-        />
-        <Route
-          path="/admin/mapping"
-          element={
-            <PermissionRoute permission="ADMIN_MAPPING">
-              <Mapping />
-            </PermissionRoute>
-          }
-        />
-        <Route
-          path="/admin/translations"
-          element={
-            <PermissionRoute permission="ADMIN_TRANSLATION">
-              <TranslationSpecs />
-            </PermissionRoute>
-          }
-        />
-        <Route
-          path="/admin/factories"
-          element={
-            <PermissionRoute permission="ADMIN_FACTORY">
-              <FactorySpecs />
-            </PermissionRoute>
-          }
-        />
-        <Route
-          path="/admin/departments"
-          element={
-            <PermissionRoute permission="ADMIN_DEPARTMENT">
-              <DepartmentSpecs />
-            </PermissionRoute>
-          }
-        />
+          {/* Admin - Quản lý người dùng, quyền hạn */}
+          <Route
+            path="/admin/users"
+            element={
+              <PermissionRoute permission="ADMIN_USER">
+                <UserSpecs />
+              </PermissionRoute>
+            }
+          />
+          <Route
+            path="/admin/roles"
+            element={
+              <PermissionRoute permission="ADMIN_ROLE">
+                <Role />
+              </PermissionRoute>
+            }
+          />
+          <Route
+            path="/admin/mapping"
+            element={
+              <PermissionRoute permission="ADMIN_MAPPING">
+                <Mapping />
+              </PermissionRoute>
+            }
+          />
+          <Route
+            path="/admin/translations"
+            element={
+              <PermissionRoute permission="ADMIN_TRANSLATION">
+                <TranslationSpecs />
+              </PermissionRoute>
+            }
+          />
+          <Route
+            path="/admin/factories"
+            element={
+              <PermissionRoute permission="ADMIN_FACTORY">
+                <FactorySpecs />
+              </PermissionRoute>
+            }
+          />
+          <Route
+            path="/admin/departments"
+            element={
+              <PermissionRoute permission="ADMIN_DEPARTMENT">
+                <DepartmentSpecs />
+              </PermissionRoute>
+            }
+          />
 
-        {/* TODO: Thêm các routes cho Approval Management sau */}
-      </Route>
-    </Routes>
+          {/* TODO: Thêm các routes cho Approval Management sau */}
+        </Route>
+      </Routes>
+    </Suspense>
   );
 }
 

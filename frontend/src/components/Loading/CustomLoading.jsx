@@ -1,45 +1,51 @@
 import { useTranslation } from "react-i18next";
-import styles from './CustomLoading.module.css';
+import styles from "./CustomLoading.module.css";
 
-const CustomLoading = ({
-  show = false,
-  message,
-  percentage = 0 // Giá trị từ 0 đến 100
-}) => {
+const CustomLoading = ({ show = false, message, percentage }) => {
   const { t } = useTranslation();
   if (!show) return null;
 
   const displayMessage =
     message === undefined ? t("components.loading.processing") : message;
-
-  // Tính toán vòng tròn SVG
+  const hasPercentage = Number.isFinite(percentage);
   const radius = 45;
   const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (percentage / 100) * circumference;
+  const offset = hasPercentage
+    ? circumference - (percentage / 100) * circumference
+    : circumference * 0.75;
 
   return (
-    <div className={styles.overlay}>
+    <div className={styles.overlay} role="status" aria-live="polite">
       <div className={styles.container}>
         <div className={styles.progressBox}>
-          <svg className={styles.svg} width="120" height="120">
-            {/* Vòng tròn nền xám */}
+          <svg
+            className={`${styles.svg} ${!hasPercentage ? styles.indeterminateSvg : ""}`}
+            width="120"
+            height="120"
+            aria-hidden="true"
+          >
             <circle
               className={styles.circleBg}
-              cx="60" cy="60" r={radius}
+              cx="60"
+              cy="60"
+              r={radius}
               strokeWidth="10"
             />
-            {/* Vòng tròn tiến trình màu xanh */}
             <circle
               className={styles.circleProgress}
-              cx="60" cy="60" r={radius}
+              cx="60"
+              cy="60"
+              r={radius}
               strokeWidth="10"
               style={{
                 strokeDasharray: circumference,
-                strokeDashoffset: offset
+                strokeDashoffset: offset,
               }}
             />
           </svg>
-          <div className={styles.percentageText}>{Math.round(percentage)}%</div>
+          {hasPercentage && (
+            <div className={styles.percentageText}>{Math.round(percentage)}%</div>
+          )}
         </div>
         {displayMessage && <p className={styles.text}>{displayMessage}</p>}
       </div>
