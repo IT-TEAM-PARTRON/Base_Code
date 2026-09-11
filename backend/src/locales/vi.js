@@ -13,8 +13,6 @@ export const vi = {
     "missingToken": "Thiếu mã định danh",
     "invalidToken": "Định danh không hợp lệ",
     "expiredToken": "Định danh đã hết hạn",
-    "invalidRefreshToken": "Refresh định danh không hợp lệ hoặc hết hạn",
-    "tokenRefreshed": "Đã làm mới định danh",
     "logoutSuccessful": "Đăng xuất thành công",
     "accessDenied": "Truy cập bị từ chối",
     "adminOnly": "Chỉ dành cho quản trị viên"

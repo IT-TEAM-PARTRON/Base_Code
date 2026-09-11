@@ -1,106 +1,107 @@
-import { createContext, useContext, useState, useEffect, useRef, useCallback } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../../api/auth/login.js";
 
 const AuthContext = createContext();
+const IDLE_TIMEOUT = 60 * 60 * 1000;
+
+const readStoredAuth = () => {
+  try {
+    return JSON.parse(localStorage.getItem("auth")) || null;
+  } catch {
+    localStorage.removeItem("auth");
+    return null;
+  }
+};
 
 export function AuthProvider({ children }) {
   const navigate = useNavigate();
-  const location = useLocation();
-  const [auth, setAuth] = useState(() => {
-    const saved = localStorage.getItem("auth");
-    return saved ? JSON.parse(saved) : null;
-  });
+  const [auth, setAuth] = useState(readStoredAuth);
 
-  const timerRef = useRef(null);
-  const idleTimer = useRef(null);
-  const IDLE_TIMEOUT = 60 * 60 * 1000; // 60 phút
-
-  // --- TỐI ƯU 1: Gom chung logic Logout (Dùng useCallback để không bị tạo lại) ---
-  const logout = useCallback(() => {
+  const clearSession = useCallback(() => {
     setAuth(null);
     localStorage.removeItem("auth");
-    navigate("/login", { replace: true });
-  }, [navigate]);
+  }, []);
 
-  // Hàm login
-  const login = (data) => setAuth(data);
+  const logout = useCallback(async () => {
+    try {
+      await logoutUser();
+    } catch {
+      // The local session must still be cleared if the server is unavailable.
+    } finally {
+      clearSession();
+      navigate("/login", { replace: true });
+    }
+  }, [clearSession, navigate]);
 
-  // Hàm reset timer
-  const resetIdleTimer = useCallback(() => {
-    if (idleTimer.current) clearTimeout(idleTimer.current);
-    idleTimer.current = setTimeout(() => {
-      logout();
-    }, IDLE_TIMEOUT);
-  }, [logout, IDLE_TIMEOUT]);
+  const login = useCallback((data) => setAuth(data), []);
 
-  // --- TỐI ƯU 2: Thêm Throttling cho sự kiện di chuột ---
-  useEffect(() => {
-    // Chỉ theo dõi idle nếu user ĐÃ đăng nhập
-    if (!auth) return;
-
-    let throttleTimer = false;
-    const THROTTLE_INTERVAL = 60 * 1000; // 1 phút (60.000ms)
-
-    const handleUserActivity = () => {
-      // Kỹ thuật Throttle: Chỉ gọi resetTimer nếu throttleTimer đang là false
-      if (!throttleTimer) {
-        resetIdleTimer();
-        throttleTimer = true;
-
-        // Khóa lại trong 1 phút . Trong 1 phút này mọi di chuột khác đều bị phớt lờ
-        setTimeout(() => {
-          throttleTimer = false;
-        }, THROTTLE_INTERVAL);
-      }
-    };
-
-    const events = ["mousemove", "keydown", "mousedown", "scroll", "touchstart"];
-    events.forEach((e) => window.addEventListener(e, handleUserActivity));
-
-    resetIdleTimer(); // Khởi động timer lần đầu
-
-    return () => {
-      events.forEach((e) => window.removeEventListener(e, handleUserActivity));
-      if (idleTimer.current) clearTimeout(idleTimer.current);
-    };
-  }, [auth, resetIdleTimer]); // Đã thêm đủ dependencies chuẩn mực
-
-  // --- 1. Lưu auth vào localStorage ---
   useEffect(() => {
     if (auth) localStorage.setItem("auth", JSON.stringify(auth));
     else localStorage.removeItem("auth");
   }, [auth]);
 
-  // --- 2. Kiểm tra token expired (Sử dụng lại hàm logout) ---
   useEffect(() => {
-    const expiresAt = auth?.userInfo?.expires_at || auth?.token?.expires_at;
-    if (expiresAt) {
-      const expireTime = new Date(expiresAt).getTime();
-      const now = Date.now();
+    if (!auth) return undefined;
 
-      if (now > expireTime) {
-        timerRef.current = setTimeout(logout, 0);
-        return () => clearTimeout(timerRef.current);
-      }
+    let idleTimer;
+    let throttleTimer;
 
-      // Hẹn giờ auto logout khi đến hạn
-      const remaining = expireTime - now;
-      timerRef.current = setTimeout(() => {
-        logout();
-      }, remaining);
-
-      return () => clearTimeout(timerRef.current);
-    }
-  }, [auth, location.pathname, logout]);
-
-  // --- 3. Đồng bộ auth giữa các tab ---
-  useEffect(() => {
-    const syncHandler = (e) => {
-      if (e.key === "auth") setAuth(e.newValue ? JSON.parse(e.newValue) : null);
+    const resetIdleTimer = () => {
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => void logout(), IDLE_TIMEOUT);
     };
-    window.addEventListener("storage", syncHandler);
-    return () => window.removeEventListener("storage", syncHandler);
-  }, []);
+
+    const handleActivity = () => {
+      if (throttleTimer) return;
+      resetIdleTimer();
+      throttleTimer = setTimeout(() => {
+        throttleTimer = undefined;
+      }, 60 * 1000);
+    };
+
+    const events = ["mousemove", "keydown", "mousedown", "scroll", "touchstart"];
+    events.forEach((event) => window.addEventListener(event, handleActivity));
+    resetIdleTimer();
+
+    return () => {
+      events.forEach((event) => window.removeEventListener(event, handleActivity));
+      clearTimeout(idleTimer);
+      clearTimeout(throttleTimer);
+    };
+  }, [auth, logout]);
+
+  useEffect(() => {
+    const syncStorage = (event) => {
+      if (event.key === "auth") setAuth(readStoredAuth());
+    };
+    const expireSession = () => {
+      clearSession();
+      navigate("/login", { replace: true });
+    };
+    const showAccessDenied = (event) => {
+      navigate("/403", {
+        replace: true,
+        state: { attemptedPath: event.detail?.attemptedPath },
+      });
+    };
+
+    window.addEventListener("storage", syncStorage);
+    window.addEventListener("sessionExpired", expireSession);
+    window.addEventListener("accessDenied", showAccessDenied);
+
+    return () => {
+      window.removeEventListener("storage", syncStorage);
+      window.removeEventListener("sessionExpired", expireSession);
+      window.removeEventListener("accessDenied", showAccessDenied);
+    };
+  }, [clearSession, navigate]);
 
   return (
     <AuthContext.Provider value={{ auth, login, logout }}>
@@ -109,7 +110,6 @@ export function AuthProvider({ children }) {
   );
 }
 
-// Hook
 // eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   return useContext(AuthContext);

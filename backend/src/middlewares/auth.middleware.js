@@ -1,26 +1,29 @@
-import jwt from "jsonwebtoken";
+import { verifyAccessToken } from "../utils/jwt.js";
+
+const authenticationError = (message, errorCode) => {
+  const error = new Error(message);
+  error.status = 401;
+  error.errorCode = errorCode;
+  return error;
+};
 
 export const authMiddleware = (req, res, next) => {
+  const header = req.headers.authorization;
+
+  if (!header) {
+    return next(authenticationError("Authentication required", "NO_TOKEN"));
+  }
+
+  const [scheme, token] = header.split(" ");
+  if (scheme !== "Bearer" || !token) {
+    return next(authenticationError("Invalid authorization header", "INVALID_TOKEN"));
+  }
+
   try {
-    const header = req.headers["authorization"];
-
-    if (!header) {
-      const err = new Error("Không có token, vui lòng đăng nhập");
-      err.status = 401;
-      err.errorCode = "NO_TOKEN";
-      return next(err);
-    }
-
-    const token = header.split(" ")[1];
-
-    const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
-
-    req.user = decoded;
-
-    next();
+    req.user = verifyAccessToken(token);
+    return next();
   } catch (error) {
-    error.status = 403;
-    error.errorCode = "INVALID_TOKEN";
-    next(error);
+    const errorCode = error.name === "TokenExpiredError" ? "TOKEN_EXPIRED" : "INVALID_TOKEN";
+    return next(authenticationError("Invalid or expired access token", errorCode));
   }
 };

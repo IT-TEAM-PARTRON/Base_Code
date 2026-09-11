@@ -13,8 +13,6 @@ export const en = {
     "missingToken": "Missing token",
     "invalidToken": "Invalid token",
     "expiredToken": "Token expired",
-    "invalidRefreshToken": "Invalid or expired refresh token",
-    "tokenRefreshed": "Token refreshed",
     "logoutSuccessful": "Logout successful",
     "accessDenied": "Access denied",
     "adminOnly": "Admin only"

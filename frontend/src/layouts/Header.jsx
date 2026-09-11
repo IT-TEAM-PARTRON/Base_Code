@@ -20,8 +20,7 @@ export default function Header({ onToggleSidebar, onForceOpenSidebar }) {
   const userRef = useRef();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    logout();
+    void logout();
   };
 
   const handleChangePassword = () => {

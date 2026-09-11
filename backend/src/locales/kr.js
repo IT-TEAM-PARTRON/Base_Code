@@ -13,8 +13,6 @@ export const kr = {
     "missingToken": "토큰이 없습니다",
     "invalidToken": "유효하지 않은 토큰",
     "expiredToken": "토큰이 만료되었습니다",
-    "invalidRefreshToken": "유효하지 않거나 만료된 리프레시 토큰",
-    "tokenRefreshed": "토큰이 갱신되었습니다",
     "logoutSuccessful": "로그아웃 성공",
     "accessDenied": "액세스 거부됨",
     "adminOnly": "관리자 전용"

@@ -1,18 +1,23 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+
 dotenv.config();
 
-export const createToken = (user) => {
-  const expiresIn = "1d"; // sau 2h thi token hết hạn
+const ACCESS_TOKEN_TTL = process.env.JWT_ACCESS_TTL || "1d";
 
-  // Tạo token trước
+const getAccessSecret = () => {
+  if (!process.env.JWT_ACCESS_SECRET) {
+    throw new Error("JWT_ACCESS_SECRET is not configured");
+  }
+  return process.env.JWT_ACCESS_SECRET;
+};
+
+export const createAccessToken = (user) => {
   const accessToken = jwt.sign(
-    { ID: user.ID, USERID: user.USERID },
-    process.env.JWT_ACCESS_SECRET,
-    { expiresIn },
+    { ID: user.ID, USERID: user.USERID, type: "access" },
+    getAccessSecret(),
+    { expiresIn: ACCESS_TOKEN_TTL },
   );
-
-  // Decode để lấy "exp"
   const { exp } = jwt.decode(accessToken);
 
   return {
@@ -20,3 +25,6 @@ export const createToken = (user) => {
     expires_at: new Date(exp * 1000).toISOString(),
   };
 };
+
+export const verifyAccessToken = (token) =>
+  jwt.verify(token, getAccessSecret());
