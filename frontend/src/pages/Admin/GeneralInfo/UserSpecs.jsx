@@ -110,7 +110,6 @@ export default function UserSpecs() {
   }, [showAlert, t]);
 
   useEffect(() => {
-    document.title = "User Specs";
     const fetchTimer = setTimeout(() => {
       fetchUsers();
       fetchRoles();

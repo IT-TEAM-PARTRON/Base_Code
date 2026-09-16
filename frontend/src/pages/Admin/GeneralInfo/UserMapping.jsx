@@ -111,7 +111,6 @@ export default function UserMapping() {
   }, [showAlert, t]);
 
   useEffect(() => {
-    document.title = "User Mapping";
     fetchRoles();
   }, [fetchRoles]);
 

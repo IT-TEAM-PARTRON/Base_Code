@@ -63,7 +63,6 @@ export default function TranslationSpecs() {
   }, []);
 
   useEffect(() => {
-    document.title = "Translation Specs";
     const fetchTimer = setTimeout(fetchData, 0);
     return () => clearTimeout(fetchTimer);
   }, [fetchData]);

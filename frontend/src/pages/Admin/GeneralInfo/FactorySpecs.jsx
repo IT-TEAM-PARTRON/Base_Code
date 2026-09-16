@@ -75,7 +75,6 @@ export default function FactorySpecs() {
   }, [showAlert, t]);
 
   useEffect(() => {
-    document.title = "Factory Specs";
     const fetchTimer = setTimeout(fetchFactories, 0);
     return () => clearTimeout(fetchTimer);
   }, [fetchFactories]);

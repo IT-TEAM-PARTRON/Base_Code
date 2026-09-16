@@ -77,7 +77,6 @@ export default function Role() {
   }, [showAlert, t]);
 
   useEffect(() => {
-    document.title = "Role Management";
     const fetchTimer = setTimeout(fetchRoles, 0);
     return () => clearTimeout(fetchTimer);
   }, [fetchRoles]);

@@ -95,7 +95,6 @@ export default function DepartmentSpecs() {
   }, [showAlert, t]);
 
   useEffect(() => {
-    document.title = "Department Specs";
     const fetchTimer = setTimeout(() => {
       fetchDepartments();
       fetchFactories();
