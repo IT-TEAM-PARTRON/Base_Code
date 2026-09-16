@@ -20,7 +20,7 @@ const DepartmentSpecs = lazy(
   () => import("./pages/Admin/GeneralInfo/DepartmentSpecs.jsx"),
 );
 const Home = lazy(() => import("./pages/Home/Home.jsx"));
-const AccessDenied = lazy(() => import("./pages/Error/AccessDenied.jsx"));
+const AccessDenied = lazy(() => import("./components/Error/AccessDenied.jsx"));
 
 function App() {
   useEffect(() => {
